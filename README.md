@@ -85,13 +85,13 @@ Navedite nekoliko tehnologija i vanjskih usluga koje bitno određuju kako vaša 
 
 | Član | Glavna uloga ili doprinos |
 | --- | --- |
-| [Antonio Dragun] | [backend] |
-| [Fran Hercig] | [frontend] |
-| [Jure Jerneić] | [backend] |
-| [Zrina Ozana Medić] | [baze podataka] |
-| [Ivona Mihaljević] | [frontend] |
-| [Tin Pavlić] | [baze podataka] |
-| [Lorena Pratljačić] | [backend] |
+| Antonio Dragun | backend |
+| Fran Hercig | frontend |
+| Jure Jerneić | backend |
+| Zrina Ozana Medić | baze podataka |
+| Ivona Mihaljević | frontend |
+| Tin Pavlić | baze podataka |
+| Lorena Pratljačić | backend |
 
 Uloge se tijekom projekta mogu mijenjati. Repozitorij i dogovoreni alat za praćenje zadataka (engl. task tracker) služe kao dodatni dokazi timskog rada.
 
