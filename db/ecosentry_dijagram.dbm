@@ -1,0 +1,141 @@
+Table KORISNIK {
+  idKorisnik int [pk, increment]
+  oidcSub varchar(255) [not null, unique]
+  ime varchar(100)
+  email varchar(255)
+  uloga varchar(20) [not null, note: 'GRADANIN, EKO_UDRUGA, KOMUNALNI_REDAR']
+  blokiran boolean [not null, default: false]
+}
+
+Table UDRUGA {
+  idUdruga int [pk, increment]
+  idKorisnik int [not null, unique]
+  naziv varchar(200) [not null]
+  registarskiBroj varchar(80)
+  opis text
+  regija varchar(120)
+  statusOdobrenja varchar(20) [not null, note: 'NA_CEKANJU, ODOBRENO, ODBIJENO']
+}
+
+Table KATEGORIJA_OTPADA {
+  idKategorija int [pk, increment]
+  nazivKategorije varchar(100) [not null, unique]
+}
+
+Table AKCIJA_CISCENJA {
+  idAkcija int [pk, increment]
+  idUdruga int [not null]
+  naziv varchar(200) [not null]
+  opis text
+  maxVolontera int [not null]
+  pocetak timestamptz [not null]
+  sastanakSirina decimal(9,6) [not null]
+  sastanakDuzina decimal(9,6) [not null]
+  sastanakAdresa text
+  status varchar(20) [not null, note: 'PLANIRANA, ODGODENA, ZAVRSENA, OTKAZANA']
+  googleEventId varchar(255)
+}
+
+Table PRIJAVA {
+  idPrijava int [pk, increment]
+  idPrijavitelj int [not null]
+  idKategorija int [not null]
+  idAkcija int
+  opis text
+  sirina decimal(9,6) [not null]
+  duzina decimal(9,6) [not null]
+  adresa text
+  grad varchar(120)
+  kvart varchar(120)
+  procijenjeniVolumenM3 decimal(10,2)
+  status varchar(30) [not null, note: 'PRIJAVLJENO, AKCIJA_U_TIJEKU, OCISCENO, SLUZBENA_SANACIJA, ODBACENO']
+  datumPrijave timestamptz [not null]
+}
+
+Table FOTOGRAFIJA {
+  idFotografija int [pk, increment]
+  idPrijava int [not null]
+  idKorisnik int [not null]
+  url text [not null]
+  tip varchar(10) [not null, note: 'PRIJE, POSLIJE']
+  datumUcitavanja timestamptz [not null]
+}
+
+Table POVIJEST_STATUSA {
+  idPovijest int [pk, increment]
+  idPrijava int [not null]
+  idKorisnik int
+  status varchar(30) [not null]
+  napomena text
+  datumPromjene timestamptz [not null]
+}
+
+Table POTVRDA_SANACIJE {
+  idPotvrda int [pk, increment]
+  idPrijava int [not null]
+  idFotografija int [not null]
+  idPodnositelj int [not null]
+  status varchar(20) [not null, note: 'NA_CEKANJU, ODOBRENO, ODBIJENO']
+  datumZahtjeva timestamptz [not null]
+}
+
+Table KOMUNALNA_TVRTKA {
+  idTvrtka int [pk, increment]
+  nazivTvrtke varchar(200) [not null, unique]
+  email varchar(255)
+}
+
+Table SLUZBENI_NALOG {
+  idNalog int [pk, increment]
+  idPrijava int [not null]
+  idRedar int [not null]
+  idTvrtka int [not null]
+  opis text
+  status varchar(20) [not null, note: 'IZDAN, U_TIJEKU, ZAVRSEN, OTKAZAN']
+  datumIzdavanja timestamptz [not null]
+}
+
+Table SUDJELOVANJE {
+  idSudjelovanje int [pk, increment]
+  idAkcija int [not null]
+  idKorisnik int [not null]
+  status varchar(20) [not null, note: 'PRIJAVLJEN, OTKAZAN']
+  googleEventId varchar(255)
+  datumPrijave timestamptz [not null]
+
+  indexes {
+    (idAkcija, idKorisnik) [unique]
+  }
+}
+
+Table OBAVIJEST {
+  idObavijest int [pk, increment]
+  idKorisnik int [not null]
+  idPrijava int
+  idAkcija int
+  poruka text [not null]
+  procitana boolean [not null, default: false]
+  datumSlanja timestamptz [not null]
+}
+
+// Strani ključevi
+Ref: UDRUGA.idKorisnik - KORISNIK.idKorisnik
+Ref: AKCIJA_CISCENJA.idUdruga > UDRUGA.idUdruga
+Ref: PRIJAVA.idPrijavitelj > KORISNIK.idKorisnik
+Ref: PRIJAVA.idKategorija > KATEGORIJA_OTPADA.idKategorija
+Ref: PRIJAVA.idAkcija > AKCIJA_CISCENJA.idAkcija
+Ref: FOTOGRAFIJA.idPrijava > PRIJAVA.idPrijava
+Ref: FOTOGRAFIJA.idKorisnik > KORISNIK.idKorisnik
+Ref: POVIJEST_STATUSA.idPrijava > PRIJAVA.idPrijava
+Ref: POVIJEST_STATUSA.idKorisnik > KORISNIK.idKorisnik
+Ref: POTVRDA_SANACIJE.idPrijava > PRIJAVA.idPrijava
+Ref: POTVRDA_SANACIJE.idFotografija > FOTOGRAFIJA.idFotografija
+Ref: POTVRDA_SANACIJE.idPodnositelj > KORISNIK.idKorisnik
+Ref: SLUZBENI_NALOG.idPrijava > PRIJAVA.idPrijava
+Ref: SLUZBENI_NALOG.idRedar > KORISNIK.idKorisnik
+Ref: SLUZBENI_NALOG.idTvrtka > KOMUNALNA_TVRTKA.idTvrtka
+Ref: SUDJELOVANJE.idAkcija > AKCIJA_CISCENJA.idAkcija
+Ref: SUDJELOVANJE.idKorisnik > KORISNIK.idKorisnik
+Ref: OBAVIJEST.idKorisnik > KORISNIK.idKorisnik
+Ref: OBAVIJEST.idPrijava > PRIJAVA.idPrijava
+Ref: OBAVIJEST.idAkcija > AKCIJA_CISCENJA.idAkcija
