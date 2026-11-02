@@ -1,15 +1,17 @@
 import { Routes, Route, Link } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Karta from './pages/Karta'
+import Akcije from './pages/Akcije'
 
 function App() {
   return (
     <>
-      <nav>
-        <Link to="/">Karta</Link> | <Link to="/login">Prijava</Link>
-      </nav>
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Karta />} />
+        <Route path="/akcije" element={<Akcije />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
