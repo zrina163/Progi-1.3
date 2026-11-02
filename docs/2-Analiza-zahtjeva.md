@@ -6,8 +6,8 @@
 | --- | --- | --- | --- | --- |
 | *F-01.1* | Korisnik se mora moći prijaviti putem vanjskog pružatelja identiteta. | Visok |Zahtjev dionika | Korisniku mora biti omogućena prijava i registracija preko OpenID Connect/OAuth 2.0 servisa. Pri prvoj prijavi korisnik dobiva ulogu Građanin. |
 | *F-01.2* | Korisnik se mora moći odjaviti iz sustava. | Visok | Odluka tima | Mora biti omogućena odjava korisničkog računa. Nakon odjave zaštićene radnje nisu dostupne bez ponovne prijave. |
-| *F-01.3* | Korisnik mora moći izbrisati svoj profil. | Srednji | Odluka tima | Korisnik ima mogućnost u opstavkama profila obrisati profil. Podnesene prijave ostaju u sustavu bez podataka o podnositelju. |
-| *F-02.1* | Korisnik mora moći zatražiti profil eko-udruge. | Visok |Zahtjev dionika | Korisnik mora moći poslati zahtjev s nazivom udruge, brojem iz registra udruga i regijom djelovanja. Nema ovlasti organizatora do odorbrenja komunalnog redara |
+| *F-01.3* | Korisnik mora moći izbrisati svoj profil. | Srednji | Odluka tima | Korisnik ima mogućnost u postavkama profila obrisati profil. Podnesene prijave ostaju u sustavu bez podataka o podnositelju. |
+| *F-02.1* | Korisnik mora moći zatražiti profil eko-udruge. | Visok |Zahtjev dionika | Korisnik mora moći poslati zahtjev s nazivom udruge, brojem iz registra udruga i regijom djelovanja. Nema ovlasti organizatora do odobrenja komunalnog redara |
 | *F-02.2* | Komunalni redar mora moći odobriti profil eko-udruge. | Visok |Zahtjev dionika | Redaru mora biti omogućeno odobravanje ili odbijanje zahtjeva za profil udruge. |
 | *F-02.3* | Komunalni redar mora moći blokirati korisnika. | Visok |Zahtjev dionika | Redaru mora biti omogućeno blokiranje korisnika koji šalju lažne prijave. Blokirani korisnik ne može podnositi prijave ni prijavljivati se na akcije. |
 | *F-03.1* | Građanin mora moći prijaviti divlje odlagalište otpada. | Visok |Zahtjev dionika | Prijava mora sadržavati GPS lokaciju, fotografiju (kamera ili galerija) i kategoriju otpada (plastika, građevinski, glomazni otpad i sl.). Prijava bez fotografije ili kategorije ne smije se pohraniti. |
