@@ -1,212 +1,136 @@
 # 2. Analiza zahtjeva
 
-**Cilj:** Iz odobrenog opsega projekta izvesti prepoznatljive, prioritetizirane i provjerljive zahtjeve. Zahtjevi se mogu mijenjati; pri završnoj predaji moraju odražavati dogovorenu aplikaciju. Izvori, odluke i poveznice u primjerima kolegija nastavni su scenariji, a ne projektni zapisi.
-
-<details>
-<summary><strong>Održavanje zahtjeva ažurnima</strong></summary>
-
-Primjeri koriste temu projekta CrisisMap. Neki namjerno sadrže korisne nedostatke za raspravu. Izvori, odluke i poveznice na provjere u tim primjerima **nastavni su scenariji**, a ne zapisi rada stvarnog studentskog tima. Zamijenite ih zahtjevima i dokazima svojeg odobrenog projekta. Značajne promjene zabilježite u odjeljku 2.5.
-
-</details>
-
 ## 2.1 Funkcijski zahtjevi
 
-**Cilj:** Navesti što aplikacija mora omogućiti korisnicima, odakle pojedina mogućnost proizlazi i koji se opažljivi rezultat smatra prihvaćanjem.
-
-| ID | Opis | Prioritet | Izvor | Kriteriji prihvaćanja |
+| ID zahtjeva | Opis | Prioritet | Izvor | Kriteriji prihvaćanja |
 | --- | --- | --- | --- | --- |
-| F-001 | [Funkcijski zahtjev/ponašanje sustava] | [Visok/Srednji/Nizak] | [Odobreni zadatak / zahtjev dionika / povratna informacija] | [Opažljivi rezultat] |
-|  |  |  |  |  |
-
-<details>
-<summary><strong>Izvori zahtjeva i kriteriji prihvaćanja</strong></summary>
-
-Svaki zahtjev treba imati stabilan ID. **Izvor označava odakle zahtjev potječe**, primjerice iz odobrenog projektnog zadatka, zahtjeva dionika ili povratne informacije koja je promijenila zahtjev. Opišite opažljivo ponašanje umjesto naziva zaslona ili programskog okvira. U cijeloj dokumentaciji koristite istu ljestvicu prioriteta. Složenu korisničku interakciju objasnite u odgovarajućem obrascu uporabe umjesto kopiranja cijelog tijeka u ovu tablicu.
-
-**Primjer — funkcijski zahtjevi za aplikaciju CrisisMap:**
-
-Kategorije izvora pokazuju različite načine na koje zahtjev može nastati.
-
-| ID | Opis | Prioritet | Izvor | Kriteriji prihvaćanja |
-| --- | --- | --- | --- | --- |
-| F-001 | Sustav omogućuje korisniku registraciju računa pomoću adrese e-pošte. | Visok | Zahtjev dionika | Korisnik se može registrirati adresom e-pošte, primiti poruku za potvrdu i aktivirati račun slijedeći poveznicu. |
-| F-002 | Sustav omogućuje oporavak lozinke putem e-pošte. | Srednji | Zahtjev dionika | Korisnik može zatražiti ponovno postavljanje lozinke, primiti poveznicu i uspješno postaviti novu lozinku. |
-| F-003 | Sustav prikazuje popis dostupnih resursa povezanih s kriznim događajima. | Visok | Postojeći sustav | Korisnik može pregledati ažurirani popis resursa relevantnih za vrstu kriznog događaja, lokaciju i raspoloživost. |
-| F-004 | Sustav omogućuje korisnicima podnošenje prijave kriznog događaja s lokacijom. | Visok | Dokument sa zahtjevima | Korisnik može podnijeti prijavu s vrstom kriznog događaja, razinom ozbiljnosti i lokacijom te dobiti potvrdu o zaprimanju. Ako odbije pristup geolokaciji preglednika, može lokaciju odabrati ručno.|
-| F-005 | Sustav šalje korisnicima obavijesti o relevantnim promjenama u njihovoj blizini. | Visok | Povratna informacija korisnika | Korisnici dobivaju obavijest unutar jedne minute od relevantne promjene za njihovu lokaciju. |
-| F-006 | Sustav prikazuje dostupne resurse prema lokaciji. | Visok | Analiza dokumentacije | Prikazuje se ažurirani popis resursa prilagođen vrsti kriznog događaja, lokaciji i raspoloživosti. |
-| F-007 | Sustav prikazuje prijave kriznih događaja s lokacijom kao oznake na karti. | Visok | Odobreni zadatak | Prijava s valjanom lokacijom prikazuje se kao oznaka na karti; odabirom oznake korisnik može otvoriti pripadajuću prijavu. |
-| F-008 | Sustav omogućuje moderatoru odobravanje ili odbijanje podnesenih prijava. | Visok | Zahtjev dionika | Moderator može odobriti ili odbiti prijavu koja čeka pregled; korisnik bez moderatorskih ovlasti ne može izvršiti te radnje. |
-
-**Kriteriji prihvaćanja i podrijetlo zahtjeva:** Primjer prikazuje registraciju, oporavak lozinke, resurse, prijavu kriznog događaja i obavijesti te nekoliko vrsta izvora i opažljivih kriterija. Istodobno otvara korisna pitanja: opisuju li F-003 i F-006 istu funkcionalnost resursa? Je li obećanje od jedne minute u F-005 dogovoreno i moguće ispitati? Treba li aplikaciji koja koristi isključivo OAuth uopće F-001 i F-002? Retke koristite kao materijal za analizu; u svojem projektu navedite vlastite zahtjeve. U stvarnom projektu stupac Izvor bilježi odakle su doista potekli njegovi zahtjevi.
-
-**Primjer prilagodbe kada odobreni zadatak koristi OAuth i kartu:** Umjesto kopiranja registracije e-poštom i oporavka lozinke formulirajte relevantni zahtjev za prijavu, primjerice: „F-001: Korisnici se prijavljuju putem odobrenog OAuth pružatelja identiteta; uspješna prijava omogućuje radnje rezervirane za prijavljene korisnike, a odustajanje od prijave ostavlja te radnje nedostupnima.” Zaseban zahtjev za kartu može glasiti: „F-007 : Prijave s lokacijom prikazuju se kao oznake na karti; odabirom oznake otvara se pripadajuća prijava.” Izvor treba biti stvarni odobreni zadatak ili dogovoreni zahtjev dionika. Ova je prilagodba zamjena za neodgovarajuće retke, a ne dodatna tablica koju svaki tim mora ispuniti.
-
-Za složenu interakciju kratak scenarij *Given / When / Then* može pojasniti kriterij. Primjerice: *Given* prijava bez lokacije, *when* građanin je podnese, *then* sustav objašnjava da lokacija nedostaje i ne pohranjuje prijavu. Nemojte jednostavan kriterij ponavljati i u prozi i u Gherkinu niti pisati Gherkin za svaki zahtjev.
-
-</details>
+| *F-01.1* | Korisnik se mora moći prijaviti putem vanjskog pružatelja identiteta. | Visok |Zahtjev dionika | Korisniku mora biti omogućena prijava i registracija preko OpenID Connect/OAuth 2.0 servisa. Pri prvoj prijavi korisnik dobiva ulogu Građanin. |
+| *F-01.2* | Korisnik se mora moći odjaviti iz sustava. | Visok | Odluka tima | Mora biti omogućena odjava korisničkog računa. Nakon odjave zaštićene radnje nisu dostupne bez ponovne prijave. |
+| *F-01.3* | Korisnik mora moći izbrisati svoj profil. | Srednji | Odluka tima | Korisnik ima mogućnost u postavkama profila obrisati profil. Podnesene prijave ostaju u sustavu bez podataka o podnositelju. |
+| *F-02.1* | Korisnik mora moći zatražiti profil eko-udruge. | Visok |Zahtjev dionika | Korisnik mora moći poslati zahtjev s nazivom udruge, brojem iz registra udruga i regijom djelovanja. Nema ovlasti organizatora do odobrenja komunalnog redara |
+| *F-02.2* | Komunalni redar mora moći odobriti profil eko-udruge. | Visok |Zahtjev dionika | Redaru mora biti omogućeno odobravanje ili odbijanje zahtjeva za profil udruge. |
+| *F-02.3* | Komunalni redar mora moći blokirati korisnika. | Visok |Zahtjev dionika | Redaru mora biti omogućeno blokiranje korisnika koji šalju lažne prijave. Blokirani korisnik ne može podnositi prijave ni prijavljivati se na akcije. |
+| *F-03.1* | Građanin mora moći prijaviti divlje odlagalište otpada. | Visok |Zahtjev dionika | Prijava mora sadržavati GPS lokaciju, fotografiju (kamera ili galerija) i kategoriju otpada (plastika, građevinski, glomazni otpad i sl.). Prijava bez fotografije ili kategorije ne smije se pohraniti. |
+| *F-03.2* | Građanin mora moći pregledati povijest svojih prijava. | Visok |Zahtjev dionika | Na profilu moraju biti vidljive sve prijave korisnika s datumom, kategorijom i trenutnim statusom. |
+| *F-03.3* | Građanin mora dobiti obavijest o promjeni statusa prijave. | Visok |Zahtjev dionika | Obavijest se mora poslati kao push ili unutaraplikacijska obavijest i sadržavati broj prijave i novi status. |
+| *F-04.1* | Prijave moraju biti prikazane na interaktivnoj karti. | Visok |Zahtjev dionika | Prijave se prikazuju kao pribadače na Google Maps karti, obojene prema statusu: crveno – Prijavljeno, žuto – Akcija u tijeku, zeleno – Očišćeno. Klikom na pribadaču otvaraju se detalji prijave s fotografijom. |
+| *F-04.2* | Sustav mora podržavati geokodiranje lokacija. | Srednji |Zahtjev dionika | Koordinate prijave moraju se pretvarati u tekstualnu adresu, a upisana adresa u koordinate na karti. |
+| *F-04.3* | Volonter mora moći vidjeti rutu do mjesta okupljanja. | Srednji |Zahtjev dionika | Na stranici akcije mora biti prikazano mjesto okupljanja na karti i ruta dolaska od trenutne lokacije korisnika. |
+| *F-05.1* | Komunalni redar mora moći verificirati prijave. | Visok |Zahtjev dionika | Redaru mora biti omogućeno potvrđivanje prijave ili njezino odbacivanje kao lažne (spam, slike bez otpada). Odbačena prijava ne prikazuje se na karti. |
+| *F-05.2* | Komunalni redar mora moći izmijeniti kategoriju otpada. | Srednji |Zahtjev dionika | Redaru mora biti omogućena izmjena kategorije ako ju je građanin pogrešno odabrao. |
+| *F-05.3* | Komunalni redar mora moći izdati službeni nalog. | Visok |Zahtjev dionika | Za opasan ili prevelik otpad redar jednim klikom generira službeni nalog i prosljeđuje ga ugovorenoj komunalnoj tvrtki. Status prijave mijenja se u „Službena sanacija”. |
+| *F-05.4* | Komunalni redar mora moći zatvoriti saniranu prijavu. | Visok |Zahtjev dionika | Redar potvrđuje zahtjev udruge za zatvaranje ili sam učitava fotografiju saniranog stanja. Prijava prelazi u status Očišćeno, a podnositelj automatski dobiva obavijest. |
+| *F-05.5* | Komunalni redar mora imati pristup analitici. | Srednji |Zahtjev dionika | Redar mora moći pregledati grafikone: broj prijava po mjesecima, najkritičniji kvartovi u gradu i postotak uspješno riješenih prijava. |
+| *F-06.1* | Eko-udruga mora imati upravljačku ploču s kartom. | Visok |Zahtjev dionika | Udruga mora vidjeti sve aktivne (crvene) prijave u svojoj regiji te klikom na pribadaču detalje, slike i procjenu volumena otpada. |
+| *F-06.2* | Eko-udruga mora moći kreirati akciju čišćenja. | Visok |Zahtjev dionika | Udruga odabire jednu ili više pribadača i definira naziv, opis, najveći broj volontera te datum, vrijeme i mjesto okupljanja. Uključene prijave prelaze u status Akcija u tijeku. |
+| *F-06.3* | Eko-udruga mora imati kalendar akcija. | Srednji |Zahtjev dionika | Sustav mora automatski voditi kalendar svih planiranih akcija udruge s prikazom popunjenosti volonterskih mjesta. |
+| *F-06.4* | Eko-udruga mora moći odgoditi akciju ili promijeniti termin. | Srednji |Zahtjev dionika | Nakon promjene termina prijavljeni volonteri moraju dobiti obavijest, a događaj u Google kalendaru mora se ažurirati. |
+| *F-06.5* | Eko-udruga mora moći potvrditi sanaciju. | Visok |Zahtjev dionika | Nakon akcije voditelj udruge učitava fotografiju očišćenog prostora kao „Dokaz o sanaciji” i šalje zahtjev za zatvaranje prijave. Zahtjev se ne može poslati bez fotografije. |
+| *F-07.1* | Građanin se mora moći prijaviti kao volonter. | Visok |Zahtjev dionika | Građanin mora moći pregledati akcije čišćenja u blizini i jednim klikom se prijaviti; prijava nije moguća kad je akcija popunjena. |
+| *F-07.2* | Volonter mora moći otkazati sudjelovanje u akciji. | Nizak | Odluka tima | Mora biti omogućeno otkazivanje prijave na akciju; oslobođeno mjesto ponovno je dostupno drugima. |
+| *F-08* | Akcije moraju biti sinkronizirane s Google kalendarom. | Visok |Zahtjev dionika | Pri kreiranju akcije i prijavi volontera mora se automatski stvoriti događaj u Google kalendaru korisnika s točnim terminom, poveznicom na lokaciju na karti, kratkim uputama i podsjetnikom 2 sata prije akcije. |
+| *F-09.1* | Mora se prikazivati vremenska prognoza za akciju. | Visok |Zahtjev dionika | U sučelju udruge i volontera mora se prikazati prognoza s OpenWeatherMap API-ja za GPS koordinate odlagališta i dan akcije. |
+| *F-09.2* | Organizator mora dobiti upozorenje o nevremenu. | Visok |Zahtjev dionika | Ako je za termin akcije najavljeno nevrijeme (jaka kiša, oluja, ekstremne temperature), sučelje mora istaknuti crveno upozorenje i ponuditi brzu odgodu ili promjenu termina. |
 
 
 ## 2.2 Nefunkcijski zahtjevi
 
-**Cilj:** Odrediti važna svojstva kvalitete i uvjete rada odobrene aplikacije na način koji tim može razumno provjeriti.
+### Zahtjevi za održavanje
 
-| ID | Opis | Prioritet | Izvor | Način provjere |
+| ID zahtjeva | Opis | Prioritet | Izvor | Način provjere |
 | --- | --- | --- | --- | --- |
-| NF-01 | [Konkretan zahtjev (npr. odziv, sigurnost, pristupačnost)] | Visok / Srednji / Nizak | [Sigurnost / Uputa / SLA] | [Mjerenje / Testni scenarij / Pregled] |
-|  |  |  |  |  |
+| NF-1.1 | Sustav mora biti jednostavan za održavanje i nadogradnju, s jasnim uputama za postavljanje i konfiguraciju vanjskih servisa (Google Maps, Google Calendar, OpenWeatherMap). | Visok | Procjena tima | Pregled dokumentacije i probno postavljanje sustava prema uputama. |
+| NF-1.2 | Konfiguracija sustava (API ključevi, adrese servisa, podaci za bazu) mora biti odvojena od izvornog koda putem varijabli okruženja. | Visok | Procjena tima | Pregled izvornog koda i konfiguracije; provjera da se sustav pokreće s vrijednostima iz varijabli okruženja. |
+| NF-1.3 | Sustav mora imati redovite sigurnosne kopije baze podataka i učitanih fotografija. | Srednji | Procjena tima | Pregled rasporeda sigurnosnog kopiranja i probno vraćanje baze podataka i fotografija. |
+| NF-1.4 | Nedostupnost vanjskog servisa (OpenWeatherMap, Google Calendar) ne smije onemogućiti podnošenje prijava ni kreiranje akcija i prijavu na njih; korisnik mora dobiti poruku o nedostupnosti. | Srednji | Procjena tima | Simulacija nedostupnosti vanjskih servisa; provjera da se osnovna radnja dovršava i prikazuje jasna poruka. |
 
-<details>
-<summary><strong>Nefunkcijski zahtjevi za analizu</strong></summary>
+### Zahtjevi za sigurnost
 
-Relevantna svojstva mogu se odnositi na uporabljivost, pristupačnost, sigurnost, performanse ili pouzdanost. Odaberite svojstva specifična za projekt i opišite kako ih je moguće provjeriti. Zahtjev navodi što se očekuje; stvarna opažanja i dokazi pripadaju rezultatima ispitivanja, a ne drugom stupcu s rezultatima u ovoj tablici.
+| ID zahtjeva | Opis | Prioritet | Izvor | Način provjere |
+| --- | --- | --- | --- | --- |
+| NF-2.1 | Sva komunikacija između klijenta i poslužitelja mora se odvijati preko HTTPS-a (TLS). | Visok | Procjena tima | Pregled mrežnog prometa i TLS konfiguracije. |
+| NF-2.2 | Autentikacija se mora provoditi isključivo putem vanjskog pružatelja identiteta (OpenID Connect / OAuth 2.0);. Sustav ne smije pohranjivati korisničke lozinke. | Visok | Odobreni zadatak | Pregled implementacije autentikacije, baze podataka i konfiguracije pružatelja identiteta. |
+| NF-2.3 | Ovlasti uloga (Građanin, Eko-udruga, Komunalni redar) moraju se provjeravati na poslužitelju. Neprijavljeni korisnik dobiva odgovor 401, a korisnik bez potrebne uloge odgovor 403. | Visok | Procjena tima | Slanje zaštićenih API zahtjeva bez tokena i s tokenom nedovoljne uloge. Provjera odgovora 401/403. |
+| NF-2.4 | Tajni ključevi (OAuth client secret, OpenWeatherMap ključ) ne smiju se nalaziti u repozitoriju ni u klijentskom kodu. Google Maps ključ mora biti ograničen na domenu aplikacije. | Visok | Procjena tima | Pregled repozitorija, klijentskog koda i postavki ograničenja ključa u Google Cloud konzoli. |
+| NF-2.5 | Sustav mora biti u skladu s GDPR-om: javna karta ne prikazuje identitet podnositelja prijave, s fotografija se uklanjaju EXIF metapodaci, a korisnik može izbrisati svoj profil. | Visok | Procjena tima | Pregled javnog prikaza, analiza metapodataka fotografije i provjera brisanja profila. |
+| NF-2.6 | Sustav mora uključivati zaštitu od zlouporabe: učitane datoteke ograničene su na JPEG i PNG do 10 MB, a broj prijava po korisniku ograničen je (rate limiting) radi sprječavanja spama. | Srednji | Procjena tima | Pokušaj učitavanja nedopuštenih datoteka i slanja većeg broja prijava u zadanom vremenu. |
 
-**Primjer — nefunkcijski zahtjevi za aplikaciju CrisisMap:**
+### Zahtjevi za performanse
 
-| ID | Opis | Prioritet | Izvor |
-| --- | --- | --- | --- |
-| NF-1.1 | Sustav mora podržati 1.000 istodobnih korisnika uz vrijeme odziva kraće od 1 s. | Visok | SLA | Opteretiti sustav zadanim brojem istodobnih korisnika i izmjeriti vrijeme odziva. |
-| NF-1.2 | Svi osjetljivi podaci moraju biti šifrirani algoritmom AES-256. | Visok | Sigurnosna politika | Pregledati način pohrane i konfiguraciju šifriranja za podatke na koje se zahtjev odnosi. |
-| NF-1.3 | Korisničko sučelje mora podržavati engleski i španjolski jezik. | Srednji | Povratna informacija dionika | Pregledati reprezentativne korisničke tijekove u oba jezika. |
-| NF-1.4 | Dostupnost sustava mora iznositi najmanje 99,5 % mjesečno. | Visok | SLA | Izračunati mjesečnu dostupnost iz zapisa sustava za nadzor, ako takvi podaci postoje.|
-| NF-3.1.7 | Sustav treba imati odgovarajuću dokumentaciju. | Visok | Pravila dokumentiranja | Pregledati zahtijevane dokumentaciju prema obavezama.|
-| NF-3.1.7.1 | Kod sustava treba biti dokumentiran prema „Code Conventions for the Java Programming Language”. | Visok | Pravila dokumentiranja | Pregledati kod. |
-| NF-3.1.7.2 | Sustav treba biti opisan projektnim dokumentom/SRS-om. | Visok | Pravila dokumentiranja | Pregledati strukturu dokumenta  |
-| NF-3.1.7.3 | Sustav treba imati „Operativni priručnik” koji opisuje pravilnu uporabu. | Visok | Pravila dokumentiranja | Pregledati postoji li priručnik i mogu li se prema njemu izvršiti opisane radnje. |
-| NF-3.1.7.4 | Sustav treba imati „Plan implementacije” za pravilno postavljanje. | Visok | Smjernice za postavljanje | Pregledati odgovara li opisani postupak stvarnom postupku postavljanja.|
+| ID zahtjeva | Opis | Prioritet | Izvor | Način provjere |
+| --- | --- | --- | --- | --- |
+| NF-3.1 | Karta s prijavama mora se učitati unutar 3 sekunde; pri većem broju prijava pribadače se grupiraju (clustering). | Visok | Procjena tima | Mjerenje učitavanja karte s oglednim skupom prijava i provjera grupiranja pribadača. |
+| NF-3.2 | Podnošenje prijave s fotografijom ne smije trajati duže od 5 sekundi; fotografija se prije slanja komprimira na klijentu. | Srednji | Procjena tima | Mjerenje trajanja podnošenja uz mobilnu vezu i provjera komprimirane datoteke prije slanja. |
+| NF-3.3 | Nova prijava ili promjena statusa mora biti vidljiva na panelu redara i karti udruge unutar 30 sekundi, bez ručnog osvježavanja stranice. | Srednji | Procjena tima | Simulacija nove prijave i promjene statusa te mjerenje vremena prikaza na oba sučelja. |
+| NF-3.4 | Odgovori OpenWeatherMap API-ja moraju se privremeno pohranjivati (npr. 1 sat) kako se ne bi prekoračilo ograničenje broja poziva. | Srednji | Uvjeti korištenja OpenWeatherMap API-ja | Pregled zapisa poziva i provjera da ponovljeni zahtjevi unutar razdoblja pohrane ne stvaraju nove pozive. |
 
-**Provjerljivost i opseg:** Primjer uvodi performanse, sigurnost, lokalizaciju, dostupnost i dokumentaciju, uključujući hijerarhijski ID zahtjeva. Navedeni izvori primjeri su podrijetla zahtjeva, a ne dokaz da za studentski projekt stvarno postoji SLA ili sigurnosna politika. Vrijednosti poput 1.000 korisnika, 99,5 % mjesečne dostupnosti i AES-256 moraju imati odobren izvor i izvediv način provjere prije nego što postanu zahtjevi tima. Skup zahtjeva o dokumentaciji ilustrira razlaganje zahtjeva, ali zahtjevi za izradu *ove dokumentacije kolegija* u pravilu pripadaju uputama zadatka, a ne zahtjevima kvalitete web-aplikacije.
+### Zahtjevi za upotrebljivost
 
-**Primjer prilagodbe:** Ako je pristupačnost zahtjevana za  projekt, projektno specifičan zahtjev može glasiti: „NF-01: Sve obavezne radnje u obrascu za podnošenje prijave moguće je izvršiti samo tipkovnicom, uz vidljiv fokus na aktivnoj kontroli.” Provjera: navigirati kroz obrazac bez pokazivačkog uređaja, odabrati ili unijeti lokaciju, poslati prijavu i provjeriti može li se pročitati rezultat. To je provjerljivo svojstvo kvalitete, a ne dodatna funkcionalnost koju svaki projekt mora implementirati.
-
-</details>
+| ID zahtjeva | Opis | Prioritet | Izvor | Način provjere |
+| --- | --- | --- | --- | --- |
+| NF-4.1 | Aplikacija mora biti responzivna. Mobilno sučelje mora biti upotrebljivo na zaslonu širine 360 px bez vodoravnog pomicanja sadržaja. | Visok | Zahtjev dionika | Pregled sučelja u emulaciji uređaja širine 360 px i na stvarnom mobilnom uređaju. |
+| NF-4.2 | Prijava otpada s terena mora biti jednostavna: najviše tri koraka (fotografija, kategorija, slanje) i dovoljno velike kontrole za rad na otvorenom. | Visok | Zahtjev dionika | Testiranje tijeka podnošenja prijave s korisnicima i pregled veličine kontrola na mobilnom uređaju. |
+| NF-4.3 | Sustav mora pružati jasne poruke o greškama i uputu za njihovo rješavanje (npr. odbijen pristup lokaciji, prevelika fotografija, nedostupna prognoza). | Srednji | Procjena tima | Izazivanje navedenih pogrešaka i provjera sadržaja prikazanih poruka. |
+| NF-4.4 | Korisničko sučelje mora biti na hrvatskom jeziku. | Srednji | Zahtjev dionika | Pregled svih javno dostupnih ekrana i poruka sustava. |
+| NF-4.5 | Status prijave na karti ne smije se označavati samo bojom; uz boju pribadače mora postojati ikona ili tekstualna oznaka. | Nizak | Procjena tima | Pregled pribadača i legende na karti te provjera prikaza bez oslanjanja samo na boju. |
 
 ## 2.3 Dionici i akteri
 
-**Cilj:** Utvrditi uloge koje utječu na zahtjeve i razlikovati dionike od aktera koji komuniciraju s aplikacijom.
-
 | ID uloge ili aktera | Odnos prema sustavu | Relevantni zahtjevi |
 | --- | --- | --- |
-|  |  |  |
-
-<details>
-<summary><strong>Akteri i povezani zahtjevi</strong></summary>
-
-**Primjer — akteri aplikacije CrisisMap:**
-
-| ID aktera | Uloga | Obuhvaćeni funkcijski zahtjevi |
-| --- | --- | --- |
-| A-01 | Koordinator pomoći | F-003: Pregled resursa; F-004: Podnošenje prijave kriznog događaja. |
-| A-02 | Građanin | F-001: Izrada računa; F-005: Primanje obavijesti. |
-| A-03 | Administrator sustava | NF-1.2: Provođenje sigurnosnih pravila; upravljanje korisnicima. |
-| A-04 | Posjetitelj | F-007: Pregled prijava na karti. |
-| A-05 | Moderator | F-008: Odobravanje ili odbijanje prijava. |
-
-**Odgovornosti aktera:** Uloga aktera treba biti povezana s interakcijom, a ne samo s nazivom. Provjerite podnosi li koordinator pomoći u odobrenom zadatku doista prijave kriznih događaja. Poveznica administratora s NF-1.2 navodi sigurnosni aspekt, ali sama po sebi ne opisuje obrazac uporabe; navedite stvarnu radnju administratora ili izostavite ulogu ako je nema. Nastavnici zainteresirani za rezultat mogu biti dionici, a da nisu akteri aplikacije. Tablica je polazište za razmišljanje, a ne potvrđen opis ovlasti u CrisisMapu.
-
-</details>
-
----
+| A-01 Građanin (prijavitelj) | Primarni akter koji pokreće životni ciklus prijave. Koristi klijentski, primarno mobilni dio aplikacije na terenu. Podnosi prijave divljih odlagališta s fotografijom, GPS lokacijom i kategorijom otpada, pregledava interaktivnu kartu prijava, prati povijest i status vlastitih prijava te prima obavijesti o promjenama. Može pregledavati akcije čišćenja u blizini i jednim klikom se prijaviti kao volonter. | F-01.1–F-01.3, F-03.1–F-04.3, F-07.1–F-07.2, F-08, F-09.1 |
+| A-02 Eko-udruga (organizator) | Akter zadužen za upravljanje ljudstvom i logistiku na terenu. Koristi naprednije web i mobilno sučelje. Pregledava aktivne (crvene) prijave u svojoj regiji, kreira akcije čišćenja za jednu ili više prijava, prati kalendar akcija i popunjenost volonterskih mjesta te nakon akcije učitava dokaz o sanaciji i šalje zahtjev za zatvaranje prijave. Ovlasti organizatora dobiva nakon što komunalni redar odobri profil udruge. | F-01.1–F-01.3, F-02.1–F-02.2, F-04.1–F-04.3, F-06.1–F-06.5, F-07.1–F-07.2, F-08, F-09.1–F-09.2 |
+| A-03 Komunalni redar (službenik / administrator) | Akter s potpunim pravima kontrole nad bazom podataka i korisnicima. Koristi isključivo web sučelje (upravljačku ploču). Verificira i moderira prijave, izdaje službene naloge za otpad koji nije prikladan za volontere, zatvara prijave nakon sanacije, odobrava profile eko-udruga, blokira korisnike koji šalju lažne prijave i pregledava analitiku. | F-01.1–F-01.3, F-02.2–F-02.3, F-03.1, F-04.1–F-04.2, F-05.1–F-05.5 |
 
 ## 2.4 Ograničenja i pretpostavke
 
-**Cilj:** Zabilježiti projektno specifične granice i pretpostavke koje utječu na zahtjeve ili oblikovanje, zajedno s njihovim izvorom i praktičnom posljedicom. Ovo je njihovo mjerodavno mjesto u dokumentaciji.
-
 | ID | Tip | Opis ograničenja ili pretpostavke | Izvor | Inženjerska posljedica / Provjera |
 | --- | --- | --- | --- | --- |
-| C-01 | Ograničenje | [Fiksni tehnički ili procesni uvjet] | [Zadatak / Pravila] | [Utjecaj na arhitekturu i oblikovanje] |
-| AS-01 | Pretpostavka | [Očekivani uvjet, npr. o podacima ili okolini] | [Procjena tima] | [Kako i kada će se provjeriti valjanost] |
-|  |  |  |  |  |
-<details>
-<summary><strong>Ograničenja nasuprot pretpostavkama</strong></summary>
-
-Ograničenje je uvjet koji tim mora poštovati; pretpostavka je uvjet na koji se tim oslanja i koji treba ponovno provjeravati.
-
-**Primjer — projektni kontekst CrisisMapa:**
-
-| ID | Ograničenje ili pretpostavka | Izvor | Posljedica ili način provjere |
-| --- | --- | --- | --- |
-| C-01 | Odobreni zadatak zahtijeva OAuth prijavu u sustav za uređivanje vlastitih prijava korisnika. | Odobreni zadatak  | Zaštićeno uređivanje projektirati oko odabranog pružatelja identiteta; provjeriti autorizirane i neautorizirane zahtjeve. |
-| AS-01 | Prijave koje se prikazuju na karti imaju uporabive koordinate. | Pretpostavka o podacima  | Pregledati ogledne i uvezene prijave; planirati prikaz prijava bez valjanih koordinata. |
-
-**Ograničenje nasuprot pretpostavci:** C-01 navodi obvezujuću odluku i njezin arhitekturni učinak; AS-01 je moguće provjeriti i može se pokazati netočnim. Nemojte kopirati C-01 ako OAuth nije dio stvarnog odobrenog zadatka. Projektni odgovor objasnite u arhitekturi bez prepisivanja ove tablice.
-
-</details>
-
----
+| C-01 | Ograničenje | Prijava novih i postojećih korisnika ostvaruje se preko vanjskog pružatelja identiteta (OpenID Connect / OAuth 2.0). Klasično upravljanje lozinkama nije potrebno. | Zahtjev dionika | Aplikacijske uloge (Građanin, Udruga, Redar) i status blokade čuvaju se u vlastitoj bazi i povezuju s identifikatorom korisnika od pružatelja (`sub`). Provjeriti autorizirane i neautorizirane zahtjeve (NF-2.2 i NF-2.3). |
+| C-02 | Ograničenje | Obavezne su integracije Google Maps API (prilagođene oznake, geokodiranje, rute), Google Calendar API i OpenWeatherMap API. | Zahtjev dionika | Potrebni API ključevi i projekt u Google Cloudu; pozive vanjskim servisima izdvojiti u zasebne adaptere radi ispitivanja i otpornosti (NF-1.4 i NF-3.4). |
+| C-03 | Ograničenje | Građanin koristi primarno mobilno sučelje. Komunalni redar koristi isključivo web sučelje. | Zahtjev dionika | Utječe na izbor klijentske tehnologije (responzivna web aplikacija / PWA ili mobilna aplikacija) i na raspored sučelja po ulogama. |
+| C-04 | Ograničenje | Zapis u korisnikov Google kalendar zahtijeva korisnikov Google račun i njegov izričit pristanak za pristup kalendaru. | Zahtjev dionika | Pristanak za kalendar tražiti tek kada je potreban (pri prvom kreiranju akcije ili prijavi na akciju). Premiti token za osvježavanje. Ako pružatelj identiteta iz C-01 nije Google, potrebna je zasebna autorizacija. |
+| AS-01 | Pretpostavka | Uređaj građanina ima GPS i korisnik dopušta pristup lokaciji. Ako ne dopusti, lokaciju označava ručno na karti. | Procjena tima | Ispitati tijek s odbijenim dopuštenjem. |
+| AS-02 | Pretpostavka | Prijava se prikazuje na karti odmah nakon podnošenja, prije verifikacije redara, kako opisuje životni vijek prijave u zadatku. Odbačene prijave se uklanjaju. | Zahtjev dionika | Potvrditi s nastavnikom vide li i ostali građani neverificirane prijave ili samo redar i udruge. |
+| AS-03 | Pretpostavka | Zadatak ne određuje boju statusa *Službena sanacija*; tim predlaže zasebnu (plavu) oznaku. | Procjena tima | Potvrditi pri prvoj kontrolnoj točki. |
+| AS-04 | Pretpostavka | Zahtjev udruge za zatvaranje potvrđuje komunalni redar prije nego što prijava dobije status *Očišćeno*. | Zahtjev dionika | Zadatak spominje i da „sustav automatski obavještava” nakon unosa fotografije; potvrditi je li potvrda redara obavezna. |
+| AS-05 | Pretpostavka | „Regija” udruge je područje djelovanja (grad ili općina) koje udruga navodi u zahtjevu za profil (F-02.1). | Procjena tima | Ako se odluči za radijus oko točke, promijeniti F-02.1 i F-06.1. |
+| AS-06 | Pretpostavka | Procjenu volumena otpada unosi građanin pri prijavi odabirom jedne od ponuđenih vrijednosti (malo/srednje/veliko). | Procjena tima | Zadatak navodi da udruga vidi procjenu, ali ne i tko je unosi. |
+| AS-07 | Pretpostavka | Službeni nalog generira se kao PDF i šalje komunalnoj tvrtki e-poštom. Tvrtka nije korisnik sustava. | Procjena tima | Kanal dostave nije zadan; potvrditi. Popis ugovorenih tvrtki održava redar. |
+| AS-08 | Pretpostavka | Volonter koji sudjeluje u akciji je Građanin (F-07.1); Eko-udruga je zaseban račun s odobrenim profilom. | Zahtjev dionika | Potvrditi tumačenje uloge „Eko-udruga / Volonter”. |
+| AS-09 | Pretpostavka | Prognoza je dostupna samo ograničen broj dana unaprijed (ovisno o planu OpenWeatherMap). Pragove nevremena (oborine, vjetar, temperatura) određuje tim. | Procjena tima | Za udaljenije termine prikazati „prognoza još nije dostupna”; konkretne pragove dokumentirati uz F-09.2. |
+| AS-10 | Pretpostavka | Push obavijesti ovise o podršci uređaja i dopuštenju korisnika; unutaraplikacijske obavijesti dovoljne su kao minimalna realizacija F-03.3. | Zahtjev dionika | Ispitati na barem jednom Android i jednom iOS uređaju. |
 
 ## 2.5 Značajne promjene zahtjeva
 
-**Cilj:** Sačuvati razlog promjena koje mijenjaju dogovoreni opseg, prioritet ili kriterije prihvaćanja, uz istodobno održavanje prethodnih zahtjeva ažurnima.
-
 | Datum | ID zahtjeva | Promjena i razlog | Dogovoreno s / dokaz |
 | --- | --- | --- | --- |
-|  |  |  |  |
-
-<details>
-<summary><strong>Primjer značajne promjene</strong></summary>
-
-**Primjer scenarija — odluka tijekom pregleda CrisisMapa:**
-
-| Datum | ID zahtjeva | Promjena i razlog | Dogovoreno s / dokaz |
-| --- | --- | --- | --- |
-| [Datum pregleda] | F-004, NF-01 | Dodati ručni odabir lokacije kada korisnik odbije geolokaciju preglednika; bez toga građanin ne može podnijeti prijavu kriznog događaja s lokacijom. | [Poveznica na stvarnu bilješku pregleda ili zadatak tima] |
-
-**Razlog promjene:** Zapis navodi zahvaćene stavke i objašnjava razlog iz perspektive korisnika, a zatim upućuje na dokaz odluke.  Nakon stvarne odluke ažurirajte trenutačne zahtjeve; stilska izmjena teksta ne zahtijeva zapis u dnevniku promjena. Trenutačni red zadataka držite u alatu za praćenje zadataka.
-
-</details>
-
----
+| — | — | Još nema dogovorenih promjena. | — |
 
 ## 2.6 Sljedivost zahtjeva
 
-**Cilj:** Osigurati dvosmjernu sljedivost — povezati zahtjeve s opisanim ponašanjem, dijelovima sustava koji ih ostvaruju te ispitivanjem ili drugom provjerom. 
+Obrasci uporabe navedeni su kao prijedlog i uskladit će se s poglavljem 3. Arhitekturna realizacija i ispitivanja popunjavaju se kako nastaju poglavlja 4–6.
 
 | ID zahtjeva | Obrazac uporabe / modul | Arhitekturna realizacija | Ispitivanje ili provjera |
 | --- | --- | --- | --- |
-| F-001 | [UC-001] | [Komponenta, modul ili drugo mjesto realizacije] | [ST-01, CT-01 ili druga provjera] |
-|  |  |  |  |
-
-<details>
-<summary><strong>Sljedivost zahtjeva do obrazaca uporabe i ispitivanja</strong></summary>
-
-**Primjer — poveznice zahtjeva CrisisMapa:**
-
-| ID zahtjeva | Obrazac uporabe / ponašanje | Arhitekturna realizacija | Ispitivanje / provjera |
-| --- | --- | --- | --- |
-| F-004 | UC-002 Podnošenje prijave kriznog događaja | Web-klijent; API za prijave; usluga za prijave | ST-01 Valjano podnošenje prijave; ST-02 Nedostaje obavezna lokacija; ST-03 Dopuštenje geolokacije odbijeno |
-| F-005 | Odabir primatelja obavijesti | Proces za obavijesti | CT-06 Primatelji obavijesti; potpuna dostava obavijesti nije pokrivena ovom provjerom |
-
-**Pokrivenost i dokazi:** CT-06 provjerava odabir primatelja za F-005, ali sam po sebi ne dokazuje da je obavijest stvarno dostavljena; ako projekt zahtijeva potpunu dostavu od početka do kraja, za taj dio treba postojati zasebna provjera. Svaki redak pokazuje gdje je zahtjev opisan kao ponašanje, gdje je ostvaren u sustavu i gdje se nalazi dokaz njegove provjere. Zahtjev ne mora imati zaseban obrazac uporabe ako ne opisuje korisničku interakciju; tada navedite relevantno ponašanje, arhitekturni element ili drugi prikladan način realizacije. U svojem projektu koristite stvarne nazive komponenata, modula i provjera iz dokumentacije i implementacije. Nedostajuću poveznicu ostavite praznom ili označite kao *na čekanju* uz kratak razlog. Stvarni rezultati ispitivanja bilježe se uz ispitne slučajeve; ova tablica pokazuje gdje ih pronaći.
-
-</details>
-
----
+| F-01.1–F-01.3 | UC-01 Prijava, odjava i brisanje profila | *na čekanju* | *na čekanju* |
+| F-02.1–F-02.3 | UC-02 Upravljanje profilom eko-udruge i korisnicima | *na čekanju* | *na čekanju* |
+| F-03.1 | UC-03 Podnošenje prijave odlagališta | *na čekanju* | *na čekanju* |
+| F-03.2–F-03.3 | UC-04 Pregled povijesti i obavijesti o prijavama | *na čekanju* | *na čekanju* |
+| F-04.1–F-04.3 | UC-05 Karta, geokodiranje i ruta | *na čekanju* | *na čekanju* |
+| F-05.1–F-05.5 | UC-06 Verifikacija, sanacija i analitika prijava | *na čekanju* | *na čekanju* |
+| F-06.1–F-06.5 | UC-07 Upravljanje akcijama čišćenja | *na čekanju* | *na čekanju* |
+| F-07.1–F-07.2 | UC-08 Prijava i odjava volontera | *na čekanju* | *na čekanju* |
+| F-08 | UC-09 Sinkronizacija s Google kalendarom | *na čekanju* | *na čekanju* |
+| F-09.1–F-09.2 | UC-10 Prognoza i upozorenje o nevremenu | *na čekanju* | *na čekanju* |
+| NF-1.4 | Otpornost na nedostupnost vanjskih servisa | *na čekanju* | *na čekanju* |
+| NF-2.2–NF-2.4 | Autentikacija, autorizacija i zaštita tajni | *na čekanju* | *na čekanju* |
+| NF-3.1–NF-3.4 | Performanse i predmemoriranje odgovora | *na čekanju* | *na čekanju* |
+| NF-4.1–NF-4.5 | Responzivnost, upotrebljivost i lokalizacija | *na čekanju* | *na čekanju* |
 
 ## 2.7 Pregled zahtjeva
 
-**Cilj:** Zabilježiti važne povratne informacije o zahtjevima i odluke koje iz njih proizlaze na dvije formalne kontrolne točke projekta, u 7. i 14. tjednu.
-
 | Kontrolna točka | Povratna informacija ili nalaz | Odluka o zahtjevu ili opsegu |
 | --- | --- | --- |
-| Iteracija 1 | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
-| Demo 2  | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
-| Završni pregled | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
-
-<details>
-<summary><strong>Odluke o zahtjevima nakon pregleda</strong></summary>
-
-**Primjer scenarija — pregled zahtjeva CrisisMapa:**
-
-| Kontrolna točka | Povratna informacija ili nalaz | Odluka o zahtjevu ili opsegu |
-| --- | --- | --- |
-| Iteracija 1 | Demonstracija pokazuje da odbijanje pristupa lokaciji preglednika onemogućuje podnošenje prijave. | Dogovoriti ručni odabir lokacije; ažurirati F-004 i primjer NF-01 te razlog zabilježiti u odjeljku 2.5. |
-
-**Odluka povezana s povratnom informacijom:** Zapis povezuje opaženo ponašanje s konkretnom promjenom zahtjeva i izbjegava zapisnik cijelog sastanka. Zapišite samo stvarne povratne informacije i odluke za kontrolne točke. Konzultacije u nekom drugom tjednu ne stvaraju dodatnu obaveznu predaju.
-
-</details>
-
----
-
->**Završna provjera:** Zahtjevi su aktualni, provjerljivi i povezani. Svaki važan zahtjev moguće je pratiti od njegova opisa i ponašanja preko mjesta realizacije u sustavu do odgovarajućeg ispitivanja ili druge provjere. Poveznice koriste stvarne identifikatore i nazive iz projektne dokumentacije.
-
+| Iteracija 1 (7. tjedan) | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
+| Demo 2 / Završni pregled (14. tjedan) | [Povratna informacija] | [Odluka; vidi odjeljak 2.5] |
