@@ -9,7 +9,6 @@ export default function Login() {
     e.preventDefault();
 
     console.log('E-mail iz bilježnice: ', email);
-    console.log('Lozinka iz bilježnice:', password);
 
     setEmail('');
     setPassword('');

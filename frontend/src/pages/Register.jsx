@@ -16,8 +16,7 @@ export default function Register() {
 
         console.log("Podatci za registraciju: ", {
             username,
-            email,
-            password
+            email
         });
 
         setUsername('');
