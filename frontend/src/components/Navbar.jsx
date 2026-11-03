@@ -21,9 +21,15 @@ function Navbar() {
         </NavLink>
       </nav>
 
-      <NavLink to="/login" className="login-button">
-        Prijava
-      </NavLink>
+      <div className="navbar-auth">
+        <NavLink to="/login" className="login-button">
+          Prijava
+        </NavLink>
+
+        <NavLink to="/register" className="login-button">
+          Registracija
+        </NavLink>
+      </div>
     </header>
   )
 }
