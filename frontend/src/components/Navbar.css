@@ -55,6 +55,11 @@
   background-color: #1c5c37;
 }
 
+.navbar-auth {
+  display: flex;
+  gap: 12px;
+}
+
 @media (max-width: 600px) {
   .navbar {
     flex-wrap: wrap;
@@ -67,7 +72,7 @@
     justify-content: center;
   }
 
-  .login-button {
+  .navbar-auth {
     margin-left: auto;
   }
 }
