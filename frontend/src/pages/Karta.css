@@ -1,0 +1,41 @@
+
+.karta-page {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.karta-header {
+    margin-bottom: 30px;
+}
+
+.karta-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.karta-header p {
+    font-size: 16px;
+    color: lightgray;
+}
+
+.karta-container {
+    border-radius: 25px;
+    overflow: hidden;
+    
+}
+
+@media (max-width: 768px) {
+    .karta-header h1 {
+        font-size: 25px;
+    }
+
+    .karta-header p {
+        font-size: 15px;
+    }
+
+    .karta-container {
+        border-radius: 15px;
+    }
+}
