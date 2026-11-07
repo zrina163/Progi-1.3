@@ -22,7 +22,7 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 
 | Odluka | Razmatrana alternativa | Projektno specifično obrazloženje i kompromis |
 | --- | --- | --- |
-|  |  |  |
+| Relacijska baza (PostgreSQL) | Objektno orjentirana baza | Podatci su iznimno povezani te relacijska baza sve veze i pravila provodi samostalno |
 
 Objasnite glavne arhitekturne odluke bez ponavljanja popisa tehnologija. Ako važna odluka ima ADR, dovoljno je u tablici navesti njegov ID.
 
@@ -87,20 +87,27 @@ Započnite crtanjem granice oko predloženog sustava. Unutar nje prepoznajte dij
 **Izvor dijagrama:** [Poveznica na njegov izvor.]  
 **Implementacija:** [Navedite gdje je odgovarajući model podataka definiran u projektu.]
 
-<details>
-<summary><strong>Jedna prijava poplave i povezani podaci</strong></summary>
+**ER dijagram:**
 
-**Primjer — CrisisMap:** Ana putem svojeg korisničkog računa podnosi prijavu poplave `R-104`. Odabire lokaciju na karti i označava razinu ozbiljnosti kao visoku. Građanin može podnijeti više prijava; svaka prijava pripada jednoj kategoriji kriznog događaja, primjerice *Poplava*. Aplikacija pohranjuje prijavu i njezine koordinate. Kartografske pločice dolaze od vanjskog pružatelja i nisu entiteti u modelu podataka aplikacije.
+![ER dijagram podataka sustava EcoSentry](./assets/diagrams/ER-dijagram.png)
 
-![ER dijagram podataka sustava CrisisMap](./assets/diagrams/4-2-crisismap-data-ERD.svg)
+**Slika 4.2. ER dijagram podataka sustava EcoSentry**
 
-**Slika 4.2. ER dijagram podataka sustava CrisisMap**
+**Izvor dijagrama:** [ecosentry_dijagram.dbml](../db/ecosentry_dijagram.dbml)  
+**Implementacija:** [ecosentry_baza.sql](../db/ecosentry_baza.sql)
 
-**PlantUML izvor:** [izvor](./puml/4-2-crisismap-data-ERD.puml)
+Centralna tablica jest `PRIJAVA`. Građanin , id est `KORISNIK`,  podnosi prijavu s kategorijom otpada, lokacijom te slikom; status prijave određuje boju pribadače na karti, a promjene se bilježe u `POVIJEST_STATUSA`. Eko-udruga (`UDRUGA`) može organizirati akcije čišćenja (`AKCIJA_CISCENJA`) tek nakon što ista bude odobrena od strane redara. Volonteri se prijavljuju preko `SUDJELOVANJE`. Nakon čišćenja, udruga podnosi `POTVRDA_SANACIJE` s odgovarajućom slikom, a građanin dobiva `OBAVIJEST`. Za prevelik otpad redar može izdati `SLUZBENI_NALOG` komunalnoj tvrtki.
 
-**Analiza primjera:** `R-104` ima jednog autora i jednu kategoriju; Ana i kategorija *Poplava* mogu biti povezane s više prijava. Dijagram prikazuje veze bez prepisivanja svih stupaca baze podataka ili pisanja drugog tabličnog opisa za svaki entitet. Ako aplikacija prihvaća i **anonimne** prijave, tu mogućnost prikažite u vezi s entitetom `Citizen`. Ako su kategorije fiksne vrijednosti, a ne pohranjeni zapisi, nemojte izmišljati tablicu kategorija. Završni ER dijagram usporedite s modelom trajne pohrane i objasnite samo razlike važne za razumijevanje projekta.
+**Primjer:** Ana hoda ulicom, vidi plastični otpad te ga prijavi. Time nastane jedan redak u tablici `PRIJAVA` (Ana je ona koja prijavi, kategorija *Plastika*) i jedan u `FOTOGRAFIJA`. Ana, naravno,  može imati više prijava, no svaka prijava ima točno jednog autora i jednu kategoriju.
 
-</details>
+**Odluke u modelu:**
+
+- Uloge i statusi su stupci s dopuštenim vrijednostima, a ne tablice, jer su fiksni
+- Kategorije otpada su tablica jer zadatak navodi samo primjere
+- Lozinke se ne spremaju; baza čuva samo identifikator iz OpenID Connecta
+- U bazi je samo URL fotografije, ne čitava slika slika
+- Prognoza i karta se ne spremaju. Od Google kalendara sačuvan je jedino identifikator događaja
+- Pravila koja baza sama ne provjerava, poput kapaciteta akcije, provjerit će poslužitelj
 
 ### 4.3.2 Reprezentativni UML dijagram razreda
 
@@ -233,7 +240,8 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 | Aspekt | Mehanizam | Pravilo | Mjesto primjene |
 | --- | --- | --- | --- |
 | [Npr. Sigurnost] | [Npr. Autorizacija korisnika] | [Npr. Ovlasti se provjeravaju na poslužiteljskoj strani za svaki zaštićeni zahtjev; skrivanje elemenata korisničkog sučelja nije dovoljna zaštita.] | [Npr. Middleware za autorizaciju / zaštita API usmjernika.] |
-| [Npr. Validacija podataka] | [Npr. Provjera ulaznih podataka] | [Npr. Geoprostorni podaci, uključujući koordinate, provjeravaju se prije pohrane.] | [Npr. Sloj za obradu zahtjeva / odgovarajuća usluga.] |
+| Validacija podataka | Ograničenja u bazi | Višestruke prijave na istu akciju, koordinate van raspona, nepoznate uloge bivaju odbijeni | Shema baze |
+| Konzistentnos podataka | Transakcije na poslužitelju | Prijava se upisuje skupa s fotografijom; prijava na akciju provjerava mjesta | Poslužiteljki sloj |
 
 <details>
 <summary><strong>Primjer zajedničkih pravila i mehanizama</strong></summary>
