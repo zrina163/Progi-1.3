@@ -175,12 +175,24 @@ CREATE TABLE OBAVIJEST
   FOREIGN KEY (idAkcija) REFERENCES AKCIJA_CISCENJA(idAkcija) ON DELETE CASCADE
 );
 
+CREATE TABLE GOOGLE_TOKEN
+(
+  principalName VARCHAR(255) NOT NULL,    -- = KORISNIK.oidcSub
+  accessToken TEXT NOT NULL,
+  accessTokenIssuedAt TIMESTAMPTZ,
+  accessTokenExpiresAt TIMESTAMPTZ,
+  scopes TEXT,
+  refreshToken TEXT,                      -- za Google Calendar dok korisnik nije prijavljen
+  PRIMARY KEY (principalName),
+  FOREIGN KEY (principalName) REFERENCES KORISNIK(oidcSub) ON DELETE CASCADE
+);
+
 -- idx za najčešće upite
 CREATE INDEX idxPrijavaStatus ON PRIJAVA(status);
 CREATE INDEX idxPrijavaLokacija ON PRIJAVA(sirina, duzina);
 CREATE INDEX idxPrijavaPrijavitelj ON PRIJAVA(idPrijavitelj);
 CREATE INDEX idxObavijestKorisnik ON OBAVIJEST(idKorisnik);
-
+CREATE INDEX idxGoogleTokenPrincipalName ON GOOGLE_TOKEN(principalName);
 --bazni podatci
 INSERT INTO KATEGORIJA_OTPADA (nazivKategorije) VALUES
   ('Plastika'),

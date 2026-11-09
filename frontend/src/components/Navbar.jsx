@@ -1,9 +1,11 @@
-
 import { Link, NavLink } from 'react-router-dom'
+import { useAuth } from '../services/AuthContext'
 import './Navbar.css'
 import logo from '../assets/logo.png'
 
 function Navbar() {
+  const { user, logout } = useAuth()
+
   return (
     <header className="navbar">
       <Link to="/" className="navbar-logo">
@@ -22,13 +24,16 @@ function Navbar() {
       </nav>
 
       <div className="navbar-auth">
-        <NavLink to="/login" className="login-button">
-          Prijava
-        </NavLink>
-
-        <NavLink to="/register" className="login-button">
-          Registracija
-        </NavLink>
+        {user ? (
+          <>
+            <span>{user.ime}</span>
+            <button className="login-button" onClick={logout}>Odjava</button>
+          </>
+        ) : (
+          <NavLink to="/login" className="login-button">
+            Prijava
+          </NavLink>
+        )}
       </div>
     </header>
   )
