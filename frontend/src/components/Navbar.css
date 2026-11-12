@@ -58,7 +58,110 @@
 .navbar-auth {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
+
+.navbar-auth button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.profile-menu {
+    position: relative;
+}
+
+.profile-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border: 1px solid #dce9df;
+    border-radius: 10px;
+    background-color: #f4f8f5;
+    cursor: pointer;
+    list-style: none;
+}
+
+.profile-trigger::-webkit-details-marker {
+    display: none;  /* Uklanja strelicu */
+}
+
+.profile-trigger:hover {
+    background-color: #e6f3ea;
+}
+
+.profile-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #dceee2;
+    color: #277849;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.profile-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.profile-arrow {
+    color: #666;
+    font-size: 20px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 240px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;  /*Omogucuje dropdown preko drugih elemenata */
+}
+
+.profile-dropdown h3 {
+    color: #277849;
+    font-size: 18px;
+    margin: 0 0 15px;
+}
+
+.profile-fullname {
+    font-weight: bold;
+    margin: 0 0 5px;
+}
+
+.profile-email {
+    font-size: 14px;
+    color: #777;
+    overflow-wrap: anywhere;
+    margin-bottom: 15px;
+}
+
+.profile-role {
+    display: inline-block;
+    background-color: #e6f3ea;
+    color: #277849;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+
+
 
 @media (max-width: 600px) {
   .navbar {
@@ -74,5 +177,18 @@
 
   .navbar-auth {
     margin-left: auto;
+  }
+
+  .profile-name {
+    display: none;
+  }
+
+  .profile-dropdown {
+    width: 210px;
+  }
+
+  .navbar-auth .login-button {
+    padding: 10px 12px;
+    font-size: 16px;
   }
 }
