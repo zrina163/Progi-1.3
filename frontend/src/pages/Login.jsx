@@ -1,45 +1,21 @@
-import { useState } from "react";
+import { Navigate, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../services/AuthContext';
 
 export default function Login() {
+  const { user, login } = useAuth();
+  const [params] = useSearchParams();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log('E-mail iz bilježnice: ', email);
-
-    setEmail('');
-    setPassword('');
-  }
+  if (user) return <Navigate to="/" replace />;
 
   return (
     <div>
       <h2>Prijava u EcoSentry</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            placeholder="korinik.mail@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
 
-        <div>
-          <label>Lozinka:</label>
-          <input
-            type="password"
-            placeholder="#####"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+      {params.has('error') && (
+        <p style={{ color: 'red' }}>Prijava nije uspjela ili je račun blokiran.</p>
+      )}
 
-        <button type="submit">Prijavi se</button>
-      </form>
+      <button onClick={login}>Prijavi se putem Googlea</button>
     </div>
   );
 }

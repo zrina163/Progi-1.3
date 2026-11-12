@@ -118,6 +118,17 @@ Table OBAVIJEST {
   datumSlanja timestamptz [not null]
 }
 
+Table GOOGLE_TOKEN {
+  principalName varchar(255) [pk]
+  accessToken text [not null]
+  accessTokenIssuedAt timestamptz
+  accessTokenExpiresAt timestamptz
+  scopes text
+  refreshToken text
+}
+
+Ref: GOOGLE_TOKEN.principalName - KORISNIK.oidcSub
+
 // Strani ključevi
 Ref: UDRUGA.idKorisnik - KORISNIK.idKorisnik
 Ref: AKCIJA_CISCENJA.idUdruga > UDRUGA.idUdruga

@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ecosentry
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/ecosentry}
+    username: ${DB_USER:ecosentry}
+    password: ${DB_PASSWORD:ecosentry}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: openid,profile,email,https://www.googleapis.com/auth/calendar.events
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
+server:
+  port: ${SERVER_PORT:8080}
