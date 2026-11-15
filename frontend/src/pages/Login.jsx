@@ -32,10 +32,6 @@ export default function Login() {
           <img src={googleLogo} alt="Google" className="google-icon" />
           Nastavi s Google računom
         </button>
-
-        <p className="login-footer">
-          
-        </p>
       </div>
     </main>
   );
