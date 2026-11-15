@@ -13,4 +13,8 @@ public interface PrijavaRepository extends JpaRepository<Prijava, Integer> {
 
     @EntityGraph(attributePaths = "kategorija")
     List<Prijava> findByPrijaviteljIdKorisnikOrderByDatumPrijaveDesc(Integer idKorisnik);
+
+    @EntityGraph(attributePaths = "kategorija")
+    List<Prijava> findByStatusAndGradIgnoreCaseOrderByDatumPrijaveDesc(StatusPrijave status, String grad);
+
 }

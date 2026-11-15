@@ -72,6 +72,14 @@ public class PrijavaService {
                 .stream().map(p -> uDetalje(p, false)).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<PrijavaDto.Detalji> aktivneURegiji(String regija){
+        return prijave.findByStatusAndGradIgnoreCaseOrderByDatumPrijaveDesc(StatusPrijave.PRIJAVLJENO, regija)
+                .stream()
+                .map(p -> uDetalje(p, false))
+                .toList();
+    }
+
     /**
      * Detalji jedne prijave. Odbačenu prijavu vide samo njezin prijavitelj i komunalni redar.
      */
