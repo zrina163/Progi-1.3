@@ -49,9 +49,9 @@ public class AkcijaService {
         akcija.setOpis(z.opis());
         akcije.save(akcija);
 
-        for (Prijava p: odabrane){
-            p.setIdAkcija(akcija.getIdAkcija());
-            prijavaService.promijeniStatus(p, StatusPrijave.AKCIJA_U_TIJEKU, k, "Uvrštena u akciju: " + akcija.getNaziv());
+        for (Prijava prijava: odabrane){
+            prijava.setIdAkcija(akcija.getIdAkcija());
+            prijavaService.promijeniStatus(prijava, StatusPrijave.AKCIJA_U_TIJEKU, k, "Uvrštena u akciju: " + akcija.getNaziv());
         }
 
         return AkcijaDto.Detalji.od(akcija, z.idPrijave());
