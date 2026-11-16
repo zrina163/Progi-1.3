@@ -49,16 +49,16 @@ public class SanacijaService {
         }
         String url = pohrana.spremi(foto);
 
-        Fotografija f = new Fotografija();
-        f.setPrijava(p);
-        f.setKorisnik(k);
-        f.setUrl(url);
-        f.setTip(Fotografija.Tip.POSLIJE);
-        fotografije.save(f);
+        Fotografija fotografija = new Fotografija();
+        fotografija.setPrijava(p);
+        fotografija.setKorisnik(k);
+        fotografija.setUrl(url);
+        fotografija.setTip(Fotografija.Tip.POSLIJE);
+        fotografije.save(fotografija);
 
         PotvrdaSanacije potvrdaSanacije = new PotvrdaSanacije();
         potvrdaSanacije.setPrijava(p);
-        potvrdaSanacije.setFotografija(f);
+        potvrdaSanacije.setFotografija(fotografija);
         potvrdaSanacije.setPodnositelj(k);
         potvrde.save(potvrdaSanacije);
 
