@@ -14,8 +14,8 @@ public class UdrugaService {
         this.udruge = udruge;
     }
 
-    public Udruga mojaOdobrenaUdruga(Korisnik k){
-        Udruga u = udruge.findByKorisnikIdKorisnik(k.getIdKorisnik())
+    public Udruga mojaOdobrenaUdruga(Korisnik korisnik){
+        Udruga u = udruge.findByKorisnikIdKorisnik(korisnik.getIdKorisnik())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Nemate profil udruge"));
         if (u.getStatusOdobrenja() != StatusOdobrenja.ODOBRENO){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Profil udruge još nije odobren");
