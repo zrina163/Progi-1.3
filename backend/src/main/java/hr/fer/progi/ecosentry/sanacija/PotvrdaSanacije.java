@@ -34,7 +34,7 @@ public class PotvrdaSanacije {
     private Instant datumZahtjeva;
 
     @PrePersist
-    void prijeSpremanja(){
+    void spremanje(){
         if(datumZahtjeva == null){
             datumZahtjeva = Instant.now();
         }
