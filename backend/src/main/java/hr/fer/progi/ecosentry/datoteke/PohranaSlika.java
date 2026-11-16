@@ -9,29 +9,27 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Map;
 import java.util.UUID;
 
 /**
  * Sprema učitane fotografije na lokalni disk (app.upload-dir).
+ * Prije spremanja svaka slika prolazi kroz ObradaSlike: provjera stvarnog formata
+ * (samo JPEG/PNG), uklanjanje EXIF metapodataka i ispravak orijentacije.
  * Slike se poslužuju preko GET /api/public/slike/{naziv}.
- * Kasnije se može zamijeniti s vanjskom pohranom (npr. S3, Cloudinary) bez promjene ostatka koda.
+ *
+ * NAPOMENA: na Renderu se lokalni disk briše pri svakom deployu – prije produkcije
+ * treba odlučiti o trajnoj pohrani (baza ili vanjska usluga) i zamijeniti ovu klasu.
  */
 @Service
 public class PohranaSlika {
 
     public static final String URL_PREFIKS = "/api/public/slike/";
 
-    private static final Map<String, String> DOPUSTENI_TIPOVI = Map.of(
-            "image/jpeg", ".jpg",
-            "image/png", ".png",
-            "image/webp", ".webp",
-            "image/heic", ".heic");
+    /** NF-2.6: najviše 10 MB po datoteci (isto ograničenje je i u application.yaml). */
+    static final long MAX_BAJTOVA = 10L * 1024 * 1024;
 
     private final Path direktorij;
 
@@ -40,20 +38,27 @@ public class PohranaSlika {
         Files.createDirectories(this.direktorij);
     }
 
-    /** Sprema sliku i vraća URL pod kojim je dostupna. */
+    /** Provjerava i čisti sliku, sprema je i vraća URL pod kojim je dostupna. */
     public String spremi(MultipartFile datoteka) {
         if (datoteka == null || datoteka.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fotografija je obavezna");
         }
-        String ekstenzija = DOPUSTENI_TIPOVI.get(datoteka.getContentType());
-        if (ekstenzija == null) {
-            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-                    "Dopuštene su samo slike (JPEG, PNG, WEBP, HEIC)");
+        if (datoteka.getSize() > MAX_BAJTOVA) {
+            throw new ResponseStatusException(HttpStatus.CONTENT_TOO_LARGE, "Fotografija smije imati najviše 10 MB");
         }
 
-        String naziv = UUID.randomUUID() + ekstenzija;
-        try (InputStream in = datoteka.getInputStream()) {
-            Files.copy(in, direktorij.resolve(naziv), StandardCopyOption.REPLACE_EXISTING);
+        byte[] ulaz;
+        try {
+            ulaz = datoteka.getBytes();
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Učitavanje fotografije nije uspjelo", e);
+        }
+
+        ObradaSlike.Rezultat ociscena = ObradaSlike.ocisti(ulaz);
+
+        String naziv = UUID.randomUUID() + ociscena.ekstenzija();
+        try {
+            Files.write(direktorij.resolve(naziv), ociscena.bajtovi());
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Spremanje slike nije uspjelo", e);
         }
