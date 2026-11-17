@@ -105,6 +105,7 @@ Centralna tablica jest `PRIJAVA`. Građanin , id est `KORISNIK`,  podnosi prijav
 - Uloge i statusi su stupci s dopuštenim vrijednostima, a ne tablice, jer su fiksni
 - Kategorije otpada su tablica jer zadatak navodi samo primjere
 - Lozinke se ne spremaju; baza čuva samo identifikator iz OpenID Connecta
+- Tokeni za pristup Google kalendaru čuvaju se u tablici `GOOGLE_TOKEN`, kako bi aplikacija mogla mijenjati događaje i kad korisnik nije prijavljen
 - U bazi je samo URL fotografije, ne čitava slika slika
 - Prognoza i karta se ne spremaju. Od Google kalendara sačuvan je jedino identifikator događaja
 - Pravila koja baza sama ne provjerava, poput kapaciteta akcije, provjerit će poslužitelj
