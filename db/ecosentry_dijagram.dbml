@@ -118,6 +118,15 @@ Table OBAVIJEST {
   datumSlanja timestamptz [not null]
 }
 
+Table GOOGLE_TOKEN {
+  principalName varchar(255) [pk, note: '= KORISNIK.oidcSub']
+  accessToken text [not null]
+  accessTokenIssuedAt timestamptz
+  accessTokenExpiresAt timestamptz
+  scopes text
+  refreshToken text [note: 'za Google Calendar dok korisnik nije prijavljen']
+}
+
 // Strani ključevi
 Ref: UDRUGA.idKorisnik - KORISNIK.idKorisnik
 Ref: AKCIJA_CISCENJA.idUdruga > UDRUGA.idUdruga
@@ -139,3 +148,4 @@ Ref: SUDJELOVANJE.idKorisnik > KORISNIK.idKorisnik
 Ref: OBAVIJEST.idKorisnik > KORISNIK.idKorisnik
 Ref: OBAVIJEST.idPrijava > PRIJAVA.idPrijava
 Ref: OBAVIJEST.idAkcija > AKCIJA_CISCENJA.idAkcija
+Ref: GOOGLE_TOKEN.principalName - KORISNIK.oidcSub
