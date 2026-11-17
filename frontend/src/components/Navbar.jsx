@@ -34,6 +34,12 @@ function Navbar() {
             Kontrolna ploča
         </NavLink>
         )}
+
+        {user?.uloga === 'EKO_UDRUGA' && (
+        <NavLink to="/udruga" className="nav-link">
+          Kontrolna ploča
+        </NavLink>
+        )}
       </nav>
 
       <div className="navbar-auth">
