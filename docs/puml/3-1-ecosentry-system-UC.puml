@@ -1,0 +1,162 @@
+@startuml
+title Sustav EcoSentry - pregledni dijagram obrazaca uporabe
+left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #26382E
+skinparam nodesep 35
+skinparam ranksep 50
+skinparam packageStyle rectangle
+
+skinparam actor {
+    BackgroundColor #F8F9FA
+    BorderColor #26382E
+    BackgroundColor<<external system>> #FFF3CD
+    BorderColor<<external system>> #856404
+}
+
+skinparam usecase {
+    BackgroundColor #E7F1EA
+    BorderColor #36794F
+}
+
+skinparam package {
+    BackgroundColor #F8FBF8
+    BorderColor #90B59D
+    FontColor #26382E
+}
+
+' ============================================================
+' Primarni akteri
+' ============================================================
+
+actor "Korisnik aplikacije" as K
+actor "Građanin" as G
+actor "Eko-udruga" as E
+actor "Komunalni redar" as R
+
+G -|> K
+E -|> K
+R -|> K
+
+' ============================================================
+' Sekundarni akteri
+' ============================================================
+
+actor "Pružatelj identiteta\n(OIDC / OAuth 2.0)" as IDP <<external system>>
+actor "Google Maps API" as GM <<external system>>
+actor "Google Calendar API" as GC <<external system>>
+actor "OpenWeatherMap API" as OW <<external system>>
+
+' ============================================================
+' Granica sustava
+' ============================================================
+
+rectangle "EcoSentry" as S {
+
+    package "Korisnički računi" {
+
+        (UC-01\nPrijava u sustav) as U01
+
+        (UC-04\nZahtjev za profil\neko-udruge) as U04
+
+        (UC-05\nOdlučivanje o profilu\neko-udruge) as U05
+    }
+
+    package "Prijave otpada i komunalni nadzor" {
+
+        (UC-07\nPodnošenje prijave\nodlagališta) as U07
+
+        (UC-08\nPraćenje vlastitih\nprijava) as U08
+
+        (UC-09\nPregled prijava\nna karti) as U09
+
+        (UC-10\nVerifikacija i\nmoderiranje prijave) as U10
+
+        (UC-11\nIzdavanje službenog\nnaloga) as U11
+
+        (UC-12\nZatvaranje sanirane\nprijave) as U12
+    }
+
+    package "Akcije čišćenja i volontiranje" {
+
+        (UC-14\nPlaniranje akcije\nčišćenja) as U14
+
+        (UC-15\nPregled akcija\ni kalendara) as U15
+
+        (UC-16\nPromjena termina\nakcije) as U16
+
+        (UC-17\nZahtjev za zatvaranje\nprijave) as U17
+
+        (UC-18\nPrijava za\nvolontiranje) as U18
+
+        (UC-20\nSinkronizacija s\nGoogle kalendarom) as U20
+    }
+}
+
+' ============================================================
+' Povezivanje primarnih aktera
+' ============================================================
+
+K -- U01
+K -- U09
+
+G -- U04
+G -- U07
+G -- U08
+G -- U15
+G -- U18
+
+E -- U14
+E -- U15
+E -- U16
+E -- U17
+
+R -- U05
+R -- U10
+R -- U11
+R -- U12
+
+' ============================================================
+' Odnosi između obrazaca uporabe
+' ============================================================
+
+' Sinkronizacija je obvezni dio oba postupka.
+' Neuspjeh vanjskog API-ja ne poništava osnovnu radnju.
+
+U14 ..> U20 : <<include>>
+U18 ..> U20 : <<include>>
+U16 ..> U20 : <<include>>
+
+' ============================================================
+' Povezivanje sekundarnih aktera
+' ============================================================
+
+U01 -right- IDP
+U09 -right- GM
+U07 -right- GM
+U20 -right- GC
+U14 -right- OW
+
+' Raspored vanjskih sustava
+IDP -[hidden]down--- GM
+GM -[hidden]down- GC
+GC -[hidden]down- OW
+
+
+
+
+' ============================================================
+' Napomene
+' ============================================================
+
+' Prijava je preduvjet za zaštićene radnje.
+' Nije include jer se ne izvršava pri svakoj radnji.
+
+' UC-02, UC-03, UC-06, UC-13 i UC-19 nisu
+' prikazani na preglednom dijagramu.
+' Ostaju zasebni ciljevi za detaljniju dokumentaciju.
+
+
+@enduml
