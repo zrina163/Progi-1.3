@@ -34,3 +34,5 @@ build/
 
 # fotografije prijava (lokalna pohrana)
 uploads/
+
+.env
