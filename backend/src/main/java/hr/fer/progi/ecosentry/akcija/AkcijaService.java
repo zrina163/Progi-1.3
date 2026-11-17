@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -26,6 +27,9 @@ public class AkcijaService {
 
     @Transactional
     public AkcijaDto.Detalji kreiraj(AkcijaDto.NovaAkcija z, Udruga udruga, Korisnik k){
+        if (new HashSet<>(z.idPrijave()).size() != z.idPrijave().size()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ista prijava je navedena više puta");
+        }
         List<Prijava> odabrane = new ArrayList<>();
         for (Integer id: z.idPrijave()){
             Prijava p = prijavaService.nadji(id);
