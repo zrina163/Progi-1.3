@@ -180,6 +180,11 @@ public class PrijavaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prijava ne postoji"));
     }
 
+    public Prijava nadjiZaAzuriranje(Integer id){
+        return prijave.findZaAzuriranjeByIdPrijava(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prijava ne postoji"));
+    }
+
     // ---------- pomoćno ----------
 
     private PrijavaDto.Detalji uDetalje(Prijava p, boolean sPrijaviteljem) {

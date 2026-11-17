@@ -31,8 +31,8 @@ public class AkcijaService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ista prijava je navedena više puta");
         }
         List<Prijava> odabrane = new ArrayList<>();
-        for (Integer id: z.idPrijave()){
-            Prijava p = prijavaService.nadji(id);
+        for (Integer id: z.idPrijave().stream().sorted().toList()){
+            Prijava p = prijavaService.nadjiZaAzuriranje(id);
             if(p.getStatus() != StatusPrijave.PRIJAVLJENO){
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Prijava #" + id + " nije u statusu Prijavljeno");
             }

@@ -58,7 +58,7 @@ class AkcijaServiceTest {
         Prijava p = new Prijava();
         p.setStatus(status);
         p.setGrad(grad);
-        when(prijavaService.nadji(id)).thenReturn(p);
+        when(prijavaService.nadjiZaAzuriranje(id)).thenReturn(p);
         return p;
     }
 
@@ -140,5 +140,15 @@ class AkcijaServiceTest {
         // odgovor sadrži naziv udruge i ID-eve prijava
         assertEquals("Test udruga", rezultat.nazivUdruge());
         assertEquals(List.of(1, 2), rezultat.idPrijave());
+    }
+    @Test
+    void duplikatiUListiPrijava400() {
+        prijava(1, StatusPrijave.PRIJAVLJENO, "Zagreb");
+
+        ResponseStatusException e = assertThrows(ResponseStatusException.class,
+                () -> servis.kreiraj(zahtjev(1, 1), udruga, voditelj));
+
+        assertEquals(400, e.getStatusCode().value());
+        verifyNoInteractions(akcije);
     }
 }
