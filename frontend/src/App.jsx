@@ -3,6 +3,8 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Karta from './pages/Karta'
 import Akcije from './pages/Akcije'
+import ProtectedRoute from './components/ProtectedRoute'
+import RedarDashboard from './pages/RedarDashboard'
 
 function App() {
   return (
@@ -13,6 +15,11 @@ function App() {
         <Route path="/" element={<Karta />} />
         <Route path="/akcije" element={<Akcije />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/redar" element={
+          <ProtectedRoute uloge={['KOMUNALNI_REDAR']}>
+            <RedarDashboard />
+          </ProtectedRoute>
+        } />
       </Routes>
     </>
   )
