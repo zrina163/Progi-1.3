@@ -140,4 +140,15 @@ class SanacijaServiceTest {
         assertEquals(StatusPrijave.AKCIJA_U_TIJEKU, prijava.getStatus());
         verify(prijavaService, never()).promijeniStatus(any(), any(), any(), any());
     }
+
+    @Test
+    void prijavaUAkcijiBezIdAkcije409() {
+        prijava.setIdAkcija(null);   // status je i dalje AKCIJA_U_TIJEKU iz setUp
+
+        ResponseStatusException e = assertThrows(ResponseStatusException.class,
+                () -> servis.posaljiDokaz(17, foto, mojaUdruga, voditelj));
+
+        assertEquals(409, e.getStatusCode().value());
+        verifyNoInteractions(pohrana);
+    }
 }

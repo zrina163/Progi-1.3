@@ -37,6 +37,9 @@ public class SanacijaService {
         if(p.getStatus() != StatusPrijave.AKCIJA_U_TIJEKU){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Prijava #" + idPrijava + " nije u akciji čišćenja");
         }
+        if (p.getIdAkcija() == null){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Prijava #" + idPrijava + " nije povezana s akcijom");
+        }
 
         AkcijaCiscenja akcija = akcijaRepo.findById(p.getIdAkcija())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Prijava nije povezana s akcijom"));
