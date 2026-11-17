@@ -1,7 +1,17 @@
 import GoogleMap from "../components/Googlemap";
 import './Karta.css'
+import api from '../services/api';
+import { useEffect, useState } from "react";
 
 function Karta() {
+  const [prijave, setPrijave] = useState([]);
+
+  useEffect(() => {
+    api.get('/api/public/prijave')
+      .then(res => setPrijave(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
   return (
 
     <div className="karta-background">
@@ -13,7 +23,7 @@ function Karta() {
         </div>
 
         <div className="karta-container">
-          <GoogleMap />
+          <GoogleMap prijave={prijave} />
         </div>
       </main>
       
