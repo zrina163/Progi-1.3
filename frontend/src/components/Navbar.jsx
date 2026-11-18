@@ -28,6 +28,18 @@ function Navbar() {
         <NavLink to="/akcije" className="nav-link">
           Akcije
         </NavLink>
+
+        {user?.uloga === 'KOMUNALNI_REDAR' && (
+        <NavLink to="/redar" className="nav-link">
+            Kontrolna ploča
+        </NavLink>
+        )}
+
+        {user?.uloga === 'EKO_UDRUGA' && (
+        <NavLink to="/udruga" className="nav-link">
+          Kontrolna ploča
+        </NavLink>
+        )}
       </nav>
 
       <div className="navbar-auth">

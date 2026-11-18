@@ -72,6 +72,14 @@ public class PrijavaService {
                 .stream().map(p -> uDetalje(p, false)).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<PrijavaDto.Detalji> aktivneURegiji(String regija){
+        return prijave.findByStatusAndGradIgnoreCaseOrderByDatumPrijaveDesc(StatusPrijave.PRIJAVLJENO, regija)
+                .stream()
+                .map(p -> uDetalje(p, false))
+                .toList();
+    }
+
     /**
      * Detalji jedne prijave. Odbačenu prijavu vide samo njezin prijavitelj i komunalni redar.
      */
@@ -169,6 +177,11 @@ public class PrijavaService {
 
     public Prijava nadji(Integer id) {
         return prijave.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prijava ne postoji"));
+    }
+
+    public Prijava nadjiZaAzuriranje(Integer id){
+        return prijave.findZaAzuriranjeByIdPrijava(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prijava ne postoji"));
     }
 
