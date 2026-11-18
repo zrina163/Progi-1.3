@@ -1,0 +1,79 @@
+
+@startuml
+title EcoSentry - UML dijagram komponenata
+left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam componentStyle rectangle
+skinparam ArrowColor #26382E
+
+skinparam component {
+    BackgroundColor #E7F1EA
+    BorderColor #36794F
+}
+
+skinparam package {
+    BackgroundColor #F8FBF8
+    BorderColor #90B59D
+}
+
+rectangle "Sustav EcoSentry" {
+
+    package "Frontend (React)" {
+        component "Korisničko sučelje" as UI
+        component "API klijent\n(Axios)" as API
+        component "Google Maps\nkomponenta" as MAP
+
+        UI --> API
+        UI --> MAP
+    }
+
+    package "Backend (Spring Boot)" {
+        component "Autentikacija i\nautorizacija" as AUTH
+        component "Upravljanje\nprijavama" as REPORT
+        component "Upravljanje\nudrugama" as ORG
+        component "Akcije čišćenja" as ACTION
+        component "Sanacija" as CLEAN
+        component "Obavijesti" as NOTIF
+        component "Pohrana slika" as IMG
+        component "JPA repozitoriji" as REPO
+
+        REPORT --> IMG
+        REPORT --> NOTIF
+        ACTION --> REPORT
+        CLEAN --> REPORT
+
+        REPORT --> REPO
+        ORG --> REPO
+        ACTION --> REPO
+        CLEAN --> REPO
+        NOTIF --> REPO
+        AUTH --> REPO
+    }
+
+    database "PostgreSQL" as DB
+    component "Spremište slika" as STORAGE
+
+    API --> AUTH : prijava / sesija
+    API --> REPORT
+    API --> ORG
+    API --> ACTION
+    API --> CLEAN
+    API --> NOTIF
+
+    REPO --> DB : JPA / SQL
+    IMG --> STORAGE
+}
+
+cloud "Pružatelj identiteta\n(OIDC / OAuth 2.0)" as IDP
+cloud "Google Maps API" as GM
+cloud "Google Calendar API\n(planirano)" as GC
+cloud "OpenWeatherMap API\n(planirano)" as OW
+
+AUTH --> IDP : autentikacija
+MAP --> GM : karta
+ACTION ..> GC : sinkronizacija
+ACTION ..> OW : prognoza
+
+@enduml

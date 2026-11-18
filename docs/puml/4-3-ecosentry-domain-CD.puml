@@ -1,0 +1,101 @@
+
+@startuml
+title EcoSentry - UML dijagram razreda za obradu prijava
+
+left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam ArrowColor #26382E
+
+skinparam class {
+    BackgroundColor #E7F1EA
+    BorderColor #36794F
+}
+
+class PrijavaController <<Controller>> {
+    + kategorije()
+    + karta(status)
+    + nova(zahtjev, fotografija, user)
+    + moje(user)
+    + detalji(id, user)
+}
+
+class PrijavaService <<Service>> {
+    + kreiraj(zahtjev, foto, prijavitelj)
+    + detalji(id, korisnik)
+    + mojePrijave(korisnik)
+    + odbaci(id, napomena, redar)
+    + promijeniKategoriju(id, idKategorija)
+    + promijeniStatus(prijava, novi, korisnik, napomena)
+    + nadji(id)
+}
+
+interface PrijavaRepository <<Repository>> {
+    + findByStatusInOrderByDatumPrijaveDesc(statusi)
+    + findByPrijaviteljIdKorisnikOrderByDatumPrijaveDesc(id)
+    + findZaAzuriranjeByIdPrijava(id)
+}
+
+class Prijava <<Entity>> {
+    - idPrijava : Integer
+    - opis : String
+    - sirina : BigDecimal
+    - duzina : BigDecimal
+    - adresa : String
+    - status : StatusPrijave
+    - datumPrijave : Instant
+    + getStatus() : StatusPrijave
+    + setStatus(status : StatusPrijave) : void
+}
+
+class Korisnik <<Entity>> {
+    - idKorisnik : Integer
+    - oidcSub : String
+    - ime : String
+    - email : String
+}
+
+class KategorijaOtpada <<Entity>> {
+    - idKategorija : Integer
+    - nazivKategorije : String
+}
+
+class Fotografija <<Entity>> {
+    - idFotografija : Integer
+    - url : String
+    - tip : Tip
+}
+
+class PovijestStatusa <<Entity>> {
+    - idPovijest : Integer
+    - status : StatusPrijave
+    - napomena : String
+    - datumPromjene : Instant
+}
+
+enum StatusPrijave {
+    PRIJAVLJENO
+    AKCIJA_U_TIJEKU
+    OCISCENO
+    SLUZBENA_SANACIJA
+    ODBACENO
+}
+
+PrijavaController --> PrijavaService : koristi
+PrijavaService --> PrijavaRepository : koristi
+
+PrijavaRepository ..> Prijava : pohranjuje
+
+Prijava "0..*" --> "1" Korisnik : prijavitelj
+Prijava "0..*" --> "1" KategorijaOtpada : kategorija
+
+Fotografija "0..*" --> "1" Prijava : pripada
+PovijestStatusa "0..*" --> "1" Prijava : bilježi status
+
+Prijava --> StatusPrijave : status
+PovijestStatusa --> StatusPrijave : status
+
+@enduml
