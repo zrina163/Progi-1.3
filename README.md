@@ -40,41 +40,85 @@ Za Iteraciju 1 i Završni pregled navedite konkretne podatke. Provjerite vodi li
 <a id="quick-start"></a>
 ## Brzi početak / instalacija
 
-<!-- Obavezno od Demo 1 nadalje. Zamijenite mjesta za unos naredbama koje je drugi član tima uspješno provjerio nakon čistog kloniranja repozitorija. Detaljne upute za administraciju držite u projektnoj dokumentaciji u direktoriju docs/. -->
+### Preduvjeti
 
-**Preduvjeti:** [Navedite potrebno izvršno okruženje (engl. runtime) i verzija, upravitelj paketa (engl. package manager), baza podataka ili vanjska usluga ako je nužna.]
+- Java 21 (JDK)
+- Node.js 22.13+ (22.x) i npm
+- PostgreSQL 13 ili noviji
+- Git
+- Google OAuth i Google Maps API pristupni podaci
+
+### Preuzimanje repozitorija
 
 ```bash
-git clone [repository URL]
-cd [repository directory]
-[install dependencies]
-[run the application]
+git clone https://github.com/zrina163/Progi-1.3.git
+cd Progi-1.3
 ```
 
-**Adresa:** [Stvarna adresa koju aplikacija ispiše nakon pokretanja.]
+### Baza podataka
 
-**Konfiguracija:** [Navedite potrebne varijable okruženja (engl. environment variables) ili uputite na sigurnu datoteku `.env.example`; objasnite gdje se dobivaju vrijednosti. Nikada ne stavljajte stvarne pristupne podatke u ovu datoteku, primjer konfiguracije, snimke zaslona, zapise ni zapise promjena (engl. commits).]
+Kreirati PostgreSQL bazu podataka `ecosentry` i izvršiti
+skriptu `db/ecosentry_baza.sql`.
 
-[Dodajte kratak korak provjere, primjerice koja se stranica treba otvoriti ili koja naredba pokreće osnovnu provjeru.] Za detaljno postavljanje pogledajte [projektnu dokumentaciju](docs/Home.md).
+Za testiranje se mogu učitati demonstracijski podaci
+iz skripte `db/demo_podaci.sql`.
+
+Detaljne upute: [Baza podataka](db/Readme.md).
+
+### Pokretanje backenda
+
+U direktoriju `backend` potrebno je kreirati `.env`
+datoteku prema predlošku `.env.example` i konfigurirati
+Google OAuth pristupne podatke.
+
+Po potrebi konfigurirati DB_URL, DB_USER i DB_PASSWORD
+prema lokalnoj PostgreSQL bazi.
+
+```powershell
+cd backend
+.\mvnw.cmd spring-boot:run
+```
+
+Backend je dostupan na http://localhost:8080.
+
+### Pokretanje frontenda
+
+U direktoriju `frontend` kreirati `.env.local` i
+postaviti VITE_GOOGLE_MAPS_API_KEY.
+Za lokalno pokretanje ostaviti VITE_API_URL praznim
+kako bi se koristio Vite proxy.
+
+U drugom terminalu, iz korijena repozitorija:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+Aplikacija je dostupna na http://localhost:5173.
+
+### Provjera rada
+
+Otvoriti aplikaciju u pregledniku, provjeriti prikaz
+interaktivne karte i dohvat prijava iz baze podataka.
+
+Dohvat prijava moguće je provjeriti i na
+http://localhost:8080/api/public/prijave.
 
 ## Tehnologije
 
-Navedite nekoliko tehnologija i vanjskih usluga koje bitno određuju kako vaša aplikacija radi. Za svaku navedite njezinu konkretnu ulogu i jedan razlog ili ograničenje važno za projekt. Alat za razvoj ili ispitivanje uključite samo ako je njegova uloga važna za razumijevanje načina na koji je projekt izrađen ili provjeren. Nemojte prepisivati popis ovisnosti (engl. dependencies), statistiku programskih jezika ni popis razvojnih okruženja i komunikacijskih alata. Tablicu provjerite prema stvarnom repozitoriju i pokrenutoj aplikaciji; potrebne verzije i konfiguraciju dokumentirajte u vodiču za instalaciju.
-
-| Tehnologija ili alat | Uloga u ovom projektu | Razlog uporabe ili važno ograničenje |
+| Tehnologija | Uloga u projektu | Razlog uporabe |
 | --- | --- | --- |
-| [Naziv] | [Što radi u ovoj aplikaciji] | [Razlog ili ograničenje specifično za projekt] |
-
-<details>
-<summary><strong>Primjer: objašnjenje ključnih tehnoloških odluka</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Tehnologija ili alat | Uloga u ovom projektu | Razlog uporabe ili važno ograničenje |
-| --- | --- | --- |
-| React | Prikazuje obrazac za prijavu i kartu kriznih događaja u pregledniku. | Karta i poslane prijave mogu se ažurirati bez ponovnog učitavanja cijele stranice. |
-| PostgreSQL | Pohranjuje prijave, lokacije i njihove odnose. | Zapisi o prijavama moraju ostati povezani s autorima i lokacijama; promjene sheme zahtijevaju migracije baze podataka (engl. database migrations). |
-| Usluga kartografskih pločica (engl. map tile service) | Omogućuje prikaz karte u pregledniku. | Karta ovisi o vanjskoj usluzi; aplikacija mora imati definirano ponašanje i kada kartografske pločice nisu dostupne. |
+| React | Korisničko sučelje | Modularna izrada komponenti |
+| Vite | Razvoj i izgradnja frontenda | Brzo pokretanje i razvoj aplikacije |
+| Java / Spring Boot | Backend i REST API | Implementacija poslovne logike |
+| PostgreSQL | Baza podataka | Relacijski model i integritet podataka |
+| Spring Security | Autentikacija i autorizacija | Upravljanje korisničkim ovlastima |
+| Google OAuth 2.0 / OpenID Connect | Prijava korisnika | Prijava bez pohrane lozinki |
+| Google Maps API | Interaktivna karta | Prikaz lokacija prijavljenog otpada |
+| Google Calendar API | Planirana integracija kalendara | Organizacija akcija čišćenja |
+| OpenWeatherMap API | Planirana integracija vremenske prognoze | Informiranje organizatora akcija |
 
 **Analiza primjera:** Svaki redak opisuje ulogu ili posljedicu konkretne tehnologije u ovoj aplikaciji. Verzije paketa pripadaju datotekama s ovisnostima projekta; verzije izvršnog okruženja i konfiguracija važna za postavljanje pripadaju vodiču za instalaciju. Važne kompromise u oblikovanju (engl. design trade-offs) objasnite na stranici arhitekture u direktoriju `docs/` umjesto da ovdje ponavljate cijeli zapis odluke. Navodite samo usluge koje vaš tim stvarno integrira.
 
@@ -97,11 +141,17 @@ Uloge se tijekom projekta mogu mijenjati. Repozitorij i dogovoreni alat za prać
 
 ## Doprinos projektu
 
-[Ako je primjenjivo, ukratko opišite kako se evidentiraju zadaci i nedostaci te kako se pregledavaju promjene koda i gdje se nalazi aktualna evidencija zadataka. Ako tim održava `CONTRIBUTING.md`, ovdje postavite poveznicu umjesto ponavljanja pravila. Nemojte stvarati tu datoteku samo zato da biste popunili ovaj odjeljak.]
+Zadaci se evidentiraju putem GitHub Issues.
+Članovi tima razvijaju funkcionalnosti na zasebnim
+granama, a promjene se uključuju u glavnu granu
+putem pull requestova nakon pregleda članova tima.
+
+- [GitHub Issues](https://github.com/zrina163/Progi-1.3/issues)
+- [Pull requests](https://github.com/zrina163/Progi-1.3/pulls)
 
 <a id="license"></a>
 
-**Status licence:** [Navedite licencu i postavite poveznicu na projektnu datoteku `LICENSE` ili izričito navedite da nije dodijeljena licenca koja dopušta javnu ponovnu uporabu. Namjeravani opseg provjerite s timom; nemojte prepisivati licencu predloška ove dokumentacije kao licencu svoje aplikacije.]
+**Status licence:** Tim još nije odabrao licencu aplikacije.
 
 Dokumentacijski predložak kolegija sadrži otvorene obrazovne sadržaje (engl. Open Educational Resources, OER) i licenciran je licencom Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. Ta licenca **ne određuje automatski licencu studentske aplikacije**; tim treba jasno navesti licencu svojeg projekta u prethodnom retku i datoteci `LICENSE`, ako je primjenjivo.
 
@@ -112,9 +162,7 @@ Kod trećih strana, skupovi podataka, slike, ikone i drugi sadržaji zadržavaju
 
 Ovaj projekt slijedi FER-ova [pravila o primjerenoj uporabi umjetne inteligencije](https://www.fer.unizg.hr/_download/repository/Policy%20on%20the%20appropriate%20use%20of%20artificial%20intelligence%20at%20the%20faculty%20of%20electrical%20engineering%20and%20computing%5B1%5D.pdf).
 
-**Izjava:** [Navedite jesu li korišteni alati umjetne inteligencije. Ako jesu, navedite alate i njihove glavne namjene te objasnite kako je tim pregledao nastali kod ili tekst i kako može objasniti vlastiti doprinos. Ako nisu korišteni, to jasno navedite. U alate umjetne inteligencije nemojte unositi privatne podatke, pristupne podatke ni tuđe zaštićene materijale.]
-
-[Ako je za ovaj projekt potreban detaljniji zapis uporabe umjetne inteligencije, postavite poveznicu na njegovo jedinstveno mjerodavno mjesto u dokumentaciji.]
+**Izjava:** Tijekom razvoja projekta korišteni su alati umjetne inteligencije kao pomoć pri programiranju, otklanjanju pogrešaka i provjeri projektne dokumentacije. Svaki član pregledao je nastali kod te može objasniti svoj doprinos.
 
 <a id="code-of-conduct-and-support"></a>
 ## Kodeks ponašanja i podrška [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
