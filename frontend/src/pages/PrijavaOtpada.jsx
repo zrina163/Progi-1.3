@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import './PrijavaOtpada.css'
+import api from '../services/api'
 
 function PrijavaOtpada() {
   const [fotografija, setFotografija] = useState(null)
@@ -10,6 +11,9 @@ function PrijavaOtpada() {
   const [greskaLokacije, setGreskaLokacije] = useState('')
   const [dohvacanjeLokacije, setDohvacanjeLokacije] = useState(false)
   const [pokusanaProvjera, setPokusanaProvjera] = useState(false)
+  const [kategorije, setKategorije] = useState([])
+  const [ucitavanjeKategorija, setUcitavanjeKategorija] = useState(true)
+  const [greskaKategorija, setGreskaKategorija] = useState('')
 
   function odaberiFotografiju(event) {
     const datoteka = event.target.files?.[0]
@@ -84,6 +88,34 @@ function dohvatiLokaciju() {
   }, [pregled])
 
   
+useEffect(() => {
+  let aktivno = true
+
+  async function dohvatiKategorije() {
+    try {
+      const odgovor = await api.get('/api/public/kategorije')
+
+      if (aktivno) {
+        setKategorije(odgovor.data)
+      }
+    } catch {
+      if (aktivno) {
+        setGreskaKategorija('Dohvaćanje kategorija nije uspjelo.')
+      }
+    } finally {
+      if (aktivno) {
+        setUcitavanjeKategorija(false)
+      }
+    }
+  }
+
+  dohvatiKategorije()
+
+  return () => {
+    aktivno = false
+  }
+}, [])
+
 return (
   <main className="prijava-otpada">
     <header className="prijava-zaglavlje">
@@ -161,13 +193,31 @@ return (
             onChange={(event) =>
               setKategorija(event.target.value)
             }
+            disabled={ucitavanjeKategorija || !!greskaKategorija}
             required
-          >
-            <option value="">Odaberi kategoriju</option>
-            <option value="plastika">Plastika</option>
-            <option value="gradevinski">Građevinski otpad</option>
-            <option value="glomazni">Glomazni otpad</option>
-          </select>
+            >
+            <option value="">
+                {ucitavanjeKategorija
+                    ? 'Učitavanje kategorija...'
+                    : 'Odaberi kategoriju'}
+            </option>
+
+            {kategorije.map((kat) => (
+                <option key={kat.id} value={kat.id}>
+                    {kat.naziv}
+                </option>
+            ))}       
+         </select>
+                    
+        {greskaKategorija && (
+            <p role="alert">{greskaKategorija}</p>
+        )}
+
+        {!ucitavanjeKategorija &&
+            !greskaKategorija &&
+            kategorije.length === 0 && (
+                <p>Nema dostupnih kategorija otpada.</p>
+        )}
         </section>
 
         {/* LOKACIJA */}
@@ -199,7 +249,7 @@ return (
       </div>
     </div>
 
-    {/* DONJI DIO - PROVJERA */}
+    {/* PROVJERA */}
     <div className="prijava-donja-traka">
       <button
         type="button"
