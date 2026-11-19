@@ -1,16 +1,16 @@
-import { Link, NavLink } from 'react-router-dom'
-import { useAuth } from '../services/AuthContext'
-import './Navbar.css'
-import logo from '../assets/logo.png'
-import { UserRound } from 'lucide-react';
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../services/AuthContext";
+import "./Navbar.css";
+import logo from "../assets/logo.png";
+import { UserRound } from "lucide-react";
 
 function Navbar() {
-  const { user, logout } = useAuth()
+  const { user, logout } = useAuth();
 
   const uloge = {
-    GRADANIN: 'Građanin',
-    EKO_UDRUGA: 'Eko-udruga',
-    KOMUNALNI_REDAR: 'Komunalni redar'
+    GRADANIN: "Građanin",
+    EKO_UDRUGA: "Eko-udruga",
+    KOMUNALNI_REDAR: "Komunalni redar",
   };
 
   return (
@@ -29,16 +29,22 @@ function Navbar() {
           Akcije
         </NavLink>
 
-        {user?.uloga === 'KOMUNALNI_REDAR' && (
-        <NavLink to="/redar" className="nav-link">
-            Kontrolna ploča
-        </NavLink>
+        {user?.uloga === "GRADANIN" && (
+          <NavLink to="/prijava-otpada" className="nav-link">
+            Prijavi otpad
+          </NavLink>
         )}
 
-        {user?.uloga === 'EKO_UDRUGA' && (
-        <NavLink to="/udruga" className="nav-link">
-          Kontrolna ploča
-        </NavLink>
+        {user?.uloga === "KOMUNALNI_REDAR" && (
+          <NavLink to="/redar" className="nav-link">
+            Kontrolna ploča
+          </NavLink>
+        )}
+
+        {user?.uloga === "EKO_UDRUGA" && (
+          <NavLink to="/udruga" className="nav-link">
+            Kontrolna ploča
+          </NavLink>
         )}
       </nav>
 
@@ -48,12 +54,10 @@ function Navbar() {
             <details className="profile-menu">
               <summary className="profile-trigger">
                 <span className="profile-avatar">
-                  {user.ime?.charAt(0).toUpperCase() || 'K'}
+                  {user.ime?.charAt(0).toUpperCase() || "K"}
                 </span>
 
-                <span className="profile-name">
-                  {user.ime || 'Moj profil'}
-                </span>
+                <span className="profile-name">{user.ime || "Moj profil"}</span>
 
                 <span className="profile-arrow">⌄</span>
               </summary>
@@ -71,11 +75,7 @@ function Navbar() {
               </div>
             </details>
 
-            <button
-              type="button"
-              className="login-button"
-              onClick={logout}
-            >
+            <button type="button" className="login-button" onClick={logout}>
               Odjava
             </button>
           </>
@@ -86,7 +86,7 @@ function Navbar() {
         )}
       </div>
     </header>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
