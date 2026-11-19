@@ -49,7 +49,7 @@
 | ID zahtjeva | Opis | Prioritet | Izvor | Način provjere |
 | --- | --- | --- | --- | --- |
 | NF-2.1 | Sva komunikacija između klijenta i poslužitelja mora se odvijati preko HTTPS-a (TLS). | Visok | Procjena tima | Pregled mrežnog prometa i TLS konfiguracije. |
-| NF-2.2 | Autentikacija se mora provoditi isključivo putem vanjskog pružatelja identiteta (OpenID Connect / OAuth 2.0);. Sustav ne smije pohranjivati korisničke lozinke. | Visok | Odobreni zadatak | Pregled implementacije autentikacije, baze podataka i konfiguracije pružatelja identiteta. |
+| NF-2.2 | Autentikacija se mora provoditi isključivo putem vanjskog pružatelja identiteta (OpenID Connect / OAuth 2.0); Sustav ne smije pohranjivati korisničke lozinke. | Visok | Odobreni zadatak | Pregled implementacije autentikacije, baze podataka i konfiguracije pružatelja identiteta. |
 | NF-2.3 | Ovlasti uloga (Građanin, Eko-udruga, Komunalni redar) moraju se provjeravati na poslužitelju. Neprijavljeni korisnik dobiva odgovor 401, a korisnik bez potrebne uloge odgovor 403. | Visok | Procjena tima | Slanje zaštićenih API zahtjeva bez tokena i s tokenom nedovoljne uloge. Provjera odgovora 401/403. |
 | NF-2.4 | Tajni ključevi (OAuth client secret, OpenWeatherMap ključ) ne smiju se nalaziti u repozitoriju ni u klijentskom kodu. Google Maps ključ mora biti ograničen na domenu aplikacije. | Visok | Procjena tima | Pregled repozitorija, klijentskog koda i postavki ograničenja ključa u Google Cloud konzoli. |
 | NF-2.5 | Sustav mora biti u skladu s GDPR-om: javna karta ne prikazuje identitet podnositelja prijave, s fotografija se uklanjaju EXIF metapodaci, a korisnik može izbrisati svoj profil. | Visok | Procjena tima | Pregled javnog prikaza, analiza metapodataka fotografije i provjera brisanja profila. |
@@ -78,7 +78,7 @@
 
 | ID uloge ili aktera | Odnos prema sustavu | Relevantni zahtjevi |
 | --- | --- | --- |
-| A-01 Građanin (prijavitelj) | Primarni akter koji pokreće životni ciklus prijave. Koristi klijentski, primarno mobilni dio aplikacije na terenu. Podnosi prijave divljih odlagališta s fotografijom, GPS lokacijom i kategorijom otpada, pregledava interaktivnu kartu prijava, prati povijest i status vlastitih prijava te prima obavijesti o promjenama. Može pregledavati akcije čišćenja u blizini i jednim klikom se prijaviti kao volonter. | F-01.1–F-01.3, F-03.1–F-04.3, F-07.1–F-07.2, F-08, F-09.1 |
+| A-01 Građanin (prijavitelj) | Primarni akter koji pokreće životni ciklus prijave. Koristi klijentski, primarno mobilni dio aplikacije na terenu. Podnosi prijave divljih odlagališta s fotografijom, GPS lokacijom i kategorijom otpada, pregledava interaktivnu kartu prijava, prati povijest i status vlastitih prijava te prima obavijesti o promjenama. Građanin može podnijeti zahtjev za profil eko-udruge, a ovlasti organizatora stječe tek nakon što komunalni redar odobri zahtjev. Može pregledavati akcije čišćenja u blizini i jednim klikom se prijaviti kao volonter. | F-01.1–F-01.3, F-02.1, F-03.1–F-04.3, F-07.1–F-07.2, F-08, F-09.1 |
 | A-02 Eko-udruga (organizator) | Akter zadužen za upravljanje ljudstvom i logistiku na terenu. Koristi naprednije web i mobilno sučelje. Pregledava aktivne (crvene) prijave u svojoj regiji, kreira akcije čišćenja za jednu ili više prijava, prati kalendar akcija i popunjenost volonterskih mjesta te nakon akcije učitava dokaz o sanaciji i šalje zahtjev za zatvaranje prijave. Ovlasti organizatora dobiva nakon što komunalni redar odobri profil udruge. | F-01.1–F-01.3, F-02.1–F-02.2, F-04.1–F-04.3, F-06.1–F-06.5, F-07.1–F-07.2, F-08, F-09.1–F-09.2 |
 | A-03 Komunalni redar (službenik / administrator) | Akter s potpunim pravima kontrole nad bazom podataka i korisnicima. Koristi isključivo web sučelje (upravljačku ploču). Verificira i moderira prijave, izdaje službene naloge za otpad koji nije prikladan za volontere, zatvara prijave nakon sanacije, odobrava profile eko-udruga, blokira korisnike koji šalju lažne prijave i pregledava analitiku. | F-01.1–F-01.3, F-02.2–F-02.3, F-03.1, F-04.1–F-04.2, F-05.1–F-05.5 |
 
@@ -89,7 +89,7 @@
 | C-01 | Ograničenje | Prijava novih i postojećih korisnika ostvaruje se preko vanjskog pružatelja identiteta (OpenID Connect / OAuth 2.0). Klasično upravljanje lozinkama nije potrebno. | Zahtjev dionika | Aplikacijske uloge (Građanin, Udruga, Redar) i status blokade čuvaju se u vlastitoj bazi i povezuju s identifikatorom korisnika od pružatelja (`sub`). Provjeriti autorizirane i neautorizirane zahtjeve (NF-2.2 i NF-2.3). |
 | C-02 | Ograničenje | Obavezne su integracije Google Maps API (prilagođene oznake, geokodiranje, rute), Google Calendar API i OpenWeatherMap API. | Zahtjev dionika | Potrebni API ključevi i projekt u Google Cloudu; pozive vanjskim servisima izdvojiti u zasebne adaptere radi ispitivanja i otpornosti (NF-1.4 i NF-3.4). |
 | C-03 | Ograničenje | Građanin koristi primarno mobilno sučelje. Komunalni redar koristi isključivo web sučelje. | Zahtjev dionika | Utječe na izbor klijentske tehnologije (responzivna web aplikacija / PWA ili mobilna aplikacija) i na raspored sučelja po ulogama. |
-| C-04 | Ograničenje | Zapis u korisnikov Google kalendar zahtijeva korisnikov Google račun i njegov izričit pristanak za pristup kalendaru. | Zahtjev dionika | Pristanak za kalendar tražiti tek kada je potreban (pri prvom kreiranju akcije ili prijavi na akciju). Premiti token za osvježavanje. Ako pružatelj identiteta iz C-01 nije Google, potrebna je zasebna autorizacija. |
+| C-04 | Ograničenje | Zapis u korisnikov Google kalendar zahtijeva korisnikov Google račun i njegov izričit pristanak za pristup kalendaru. | Zahtjev dionika | Pristanak za kalendar tražiti tek kada je potreban (pri prvom kreiranju akcije ili prijavi na akciju). Pohraniti token za osvježavanje na siguran način, ako je potreban za sinkronizaciju. Ako pružatelj identiteta iz C-01 nije Google, potrebna je zasebna autorizacija. |
 | AS-01 | Pretpostavka | Uređaj građanina ima GPS i korisnik dopušta pristup lokaciji. Ako ne dopusti, lokaciju označava ručno na karti. | Procjena tima | Ispitati tijek s odbijenim dopuštenjem. |
 | AS-02 | Pretpostavka | Prijava se prikazuje na karti odmah nakon podnošenja, prije verifikacije redara, kako opisuje životni vijek prijave u zadatku. Odbačene prijave se uklanjaju. | Zahtjev dionika | Potvrditi s nastavnikom vide li i ostali građani neverificirane prijave ili samo redar i udruge. |
 | AS-03 | Pretpostavka | Zadatak ne određuje boju statusa *Službena sanacija*; tim predlaže zasebnu (plavu) oznaku. | Procjena tima | Potvrditi pri prvoj kontrolnoj točki. |
@@ -107,26 +107,42 @@
 | --- | --- | --- | --- |
 | — | — | Još nema dogovorenih promjena. | — |
 
+
 ## 2.6 Sljedivost zahtjeva
 
-Obrasci uporabe navedeni su kao prijedlog i uskladit će se s poglavljem 3. Arhitekturna realizacija i ispitivanja popunjavaju se kako nastaju poglavlja 4–6.
+Obrasci uporabe definirani su u poglavlju 3. Pregledni UML dijagram prikazuje glavne korisničke ciljeve, dok su UC-02, UC-03, UC-06, UC-13 i UC-19 opisani tekstualnim specifikacijama. UC-20 predstavlja pomoćni obrazac uporabe sinkronizacije s Google kalendarom.
 
 | ID zahtjeva | Obrazac uporabe / modul | Arhitekturna realizacija | Ispitivanje ili provjera |
 | --- | --- | --- | --- |
-| F-01.1–F-01.3 | UC-01 Prijava, odjava i brisanje profila | *na čekanju* | *na čekanju* |
-| F-02.1–F-02.3 | UC-02 Upravljanje profilom eko-udruge i korisnicima | *na čekanju* | *na čekanju* |
-| F-03.1 | UC-03 Podnošenje prijave odlagališta | *na čekanju* | *na čekanju* |
-| F-03.2–F-03.3 | UC-04 Pregled povijesti i obavijesti o prijavama | *na čekanju* | *na čekanju* |
-| F-04.1–F-04.3 | UC-05 Karta, geokodiranje i ruta | *na čekanju* | *na čekanju* |
-| F-05.1–F-05.5 | UC-06 Verifikacija, sanacija i analitika prijava | *na čekanju* | *na čekanju* |
-| F-06.1–F-06.5 | UC-07 Upravljanje akcijama čišćenja | *na čekanju* | *na čekanju* |
-| F-07.1–F-07.2 | UC-08 Prijava i odjava volontera | *na čekanju* | *na čekanju* |
-| F-08 | UC-09 Sinkronizacija s Google kalendarom | *na čekanju* | *na čekanju* |
-| F-09.1–F-09.2 | UC-10 Prognoza i upozorenje o nevremenu | *na čekanju* | *na čekanju* |
+| F-01.1 | UC-01 Prijava u sustav | *na čekanju* | *na čekanju* |
+| F-01.2 | UC-02 Odjava iz sustava | *na čekanju* | *na čekanju* |
+| F-01.3 | UC-03 Brisanje vlastitog profila | *na čekanju* | *na čekanju* |
+| F-02.1 | UC-04 Podnošenje zahtjeva za profil eko-udruge | *na čekanju* | *na čekanju* |
+| F-02.2 | UC-05 Odlučivanje o profilu eko-udruge | *na čekanju* | *na čekanju* |
+| F-02.3 | UC-06 Blokiranje korisnika | *na čekanju* | *na čekanju* |
+| F-03.1 | UC-07 Podnošenje prijave odlagališta | *na čekanju* | *na čekanju* |
+| F-03.2–F-03.3 | UC-08 Praćenje vlastitih prijava; UC-12 Zatvaranje sanirane prijave | *na čekanju* | *na čekanju* |
+| F-04.1–F-04.2 | UC-09 Pregled prijava na karti; UC-07 Podnošenje prijave odlagališta | *na čekanju* | *na čekanju* |
+| F-04.3 | UC-15 Pregled akcija i kalendara | *na čekanju* | *na čekanju* |
+| F-05.1–F-05.2 | UC-10 Verifikacija i moderiranje prijave | *na čekanju* | *na čekanju* |
+| F-05.3 | UC-11 Izdavanje službenog naloga | *na čekanju* | *na čekanju* |
+| F-05.4 | UC-12 Zatvaranje sanirane prijave | *na čekanju* | *na čekanju* |
+| F-05.5 | UC-13 Pregled analitike i izvještaja | *na čekanju* | *na čekanju* |
+| F-06.1 | UC-09 Pregled prijava na karti; UC-14 Planiranje akcije čišćenja | *na čekanju* | *na čekanju* |
+| F-06.2 | UC-14 Planiranje akcije čišćenja | *na čekanju* | *na čekanju* |
+| F-06.3 | UC-15 Pregled akcija i kalendara | *na čekanju* | *na čekanju* |
+| F-06.4 | UC-16 Promjena termina akcije | *na čekanju* | *na čekanju* |
+| F-06.5 | UC-17 Podnošenje zahtjeva za zatvaranje prijave | *na čekanju* | *na čekanju* |
+| F-07.1 | UC-18 Prijava za volontiranje | *na čekanju* | *na čekanju* |
+| F-07.2 | UC-19 Otkazivanje sudjelovanja u akciji | *na čekanju* | *na čekanju* |
+| F-08 | UC-14 Planiranje akcije čišćenja; UC-16 Promjena termina akcije; UC-18 Prijava za volontiranje; UC-20 Sinkronizacija s Google kalendarom | *na čekanju* | *na čekanju* |
+| F-09.1 | UC-14 Planiranje akcije čišćenja; UC-15 Pregled akcija i kalendara | *na čekanju* | *na čekanju* |
+| F-09.2 | UC-14 Planiranje akcije čišćenja; UC-16 Promjena termina akcije | *na čekanju* | *na čekanju* |
 | NF-1.4 | Otpornost na nedostupnost vanjskih servisa | *na čekanju* | *na čekanju* |
 | NF-2.2–NF-2.4 | Autentikacija, autorizacija i zaštita tajni | *na čekanju* | *na čekanju* |
 | NF-3.1–NF-3.4 | Performanse i predmemoriranje odgovora | *na čekanju* | *na čekanju* |
 | NF-4.1–NF-4.5 | Responzivnost, upotrebljivost i lokalizacija | *na čekanju* | *na čekanju* |
+
 
 ## 2.7 Pregled zahtjeva
 
