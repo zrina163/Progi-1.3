@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# fotografije prijava (lokalna pohrana)
+uploads/
+
+.env
