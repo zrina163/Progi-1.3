@@ -10,16 +10,26 @@ Aplikacija povezuje tri glavne skupine korisnika: građane, ekološke udruge i k
 
 Očekivana korist aplikacije jest jednostavnija komunikacija između uključenih korisnika, bolja preglednost prijavljenih odlagališta te lakše praćenje i organiziranje aktivnosti povezanih s njihovim uklanjanjem.
 
-## 1.2. Ciljani korisnici i dionici
+## 1.2 Ciljani korisnici i dionici
 
-Sustav je namijenjen trima osnovnim korisničkim ulogama koje imaju različite potrebe i ovlasti.
+### Ciljani korisnici
+| Korisnik |	Opis |	Potrebe |
+| --- | --- | --- |
+|Građani (prijavitelji) |	Osobe koje uočavaju nepropisno odložen otpad i žele prijaviti problem.	| Jednostavna prijava otpada, pregled karte, praćenje statusa prijava i primanje obavijesti. |
+|Volonteri |	Osobe zainteresirane za sudjelovanje u organiziranim akcijama čišćenja. |	Pregled dostupnih akcija, prijava na akcije te informacije o lokaciji i vremenu održavanja. |
+| Predstavnici eko-udruga |	Članovi organizacija koje organiziraju i provode akcije čišćenja. |	Pregled prijava otpada, organizacija akcija, upravljanje volonterima i potvrđivanje sanacije. |
+| Komunalni redari |	Ovlašteni službenici koji provjeravaju prijave i koordiniraju službenu sanaciju. |	Provjera prijava, promjena statusa, izdavanje naloga i pregled statistike. |
 
-| Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
-|---|---|
-| **Građanin (prijavitelj)** | Prijaviti divlje odlagalište uz fotografiju i geografsku lokaciju, pregledavati prijavljena odlagališta na karti, pratiti status vlastitih prijava te se prijavljivati za sudjelovanje u akcijama čišćenja. |
-| **Ekološka udruga (organizator)** | Pregledavati prijavljena odlagališta, organizirati akcije čišćenja, određivati termine i mjesta okupljanja, pratiti prijave volontera te evidentirati završetak sanacije. |
-| **Komunalni redar (administrator)** | Provjeravati valjanost zaprimljenih prijava, odbacivati neispravne prijave, uređivati kategorije otpada, pokretati postupak službene sanacije, upravljati korisničkim ovlastima i pregledavati statistiku prijava. |
-| **Komunalne službe (vanjski dionik)** | Zaprimati informacije o odlagalištima za koja je potrebna službena sanacija. Njihovo samostalno korištenje aplikacije nije predviđeno kao zasebna korisnička uloga. |
+### Dionici
+| Dionik |	Interes u sustavu |	Utjecaj na projekt |
+| --- | --- | --- |
+| Građani i lokalna zajednica |	Čistiji okoliš, jednostavnije prijavljivanje otpada i transparentnost postupanja. |	Povratnim informacijama i prijavama utječu na korisnost sustava. |
+| Ekološke udruge |	Učinkovitija organizacija akcija čišćenja i koordinacija volontera. |	Definiraju potrebe povezane s organizacijom akcija. |
+| Komunalne službe i lokalna samouprava |	Brže otkrivanje divljih odlagališta, pouzdane prijave i učinkovitija sanacija. |	Utječu na zahtjeve za provjeru prijava, službeno postupanje i izvještavanje. |
+| Volonteri |	Jednostavno pronalaženje akcija i sudjelovanje u očuvanju okoliša. |	Njihove potrebe utječu na oblikovanje procesa prijave na akcije. |
+| Projektni tim |	Uspješna implementacija i održavanje aplikacije u skladu sa zahtjevima projekta.	| Donosi tehničke i organizacijske odluke tijekom razvoja. |
+| Nastavnik i asistent kolegija |	Usklađenost rješenja sa zadatkom i kriterijima vrednovanja.	| Pregledavaju projekt, daju povratne informacije i vrednuju rezultate. |
+
 
 ## 1.3. Granice projekta
 
