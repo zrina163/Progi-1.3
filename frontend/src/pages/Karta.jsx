@@ -1,4 +1,4 @@
-import GoogleMap from "../components/Googlemap";
+import GoogleMap from "../components/GoogleMap";
 import './Karta.css'
 import api from '../services/api';
 import { useEffect, useState } from "react";
