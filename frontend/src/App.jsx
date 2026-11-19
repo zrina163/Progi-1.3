@@ -18,9 +18,7 @@ function App() {
         <Route path="/" element={<Karta />} />
         <Route path="/akcije" element={<Akcije />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/prijava-otpada" element={<PrijavaOtpada />} />
-
         <Route path="/redar" element={
           <ProtectedRoute uloge={['KOMUNALNI_REDAR']}>
             <RedarDashboard />
