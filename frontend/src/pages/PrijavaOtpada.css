@@ -1,0 +1,207 @@
+
+.prijava-otpada,
+.prijava-otpada * {
+  box-sizing: border-box;
+}
+
+.prijava-otpada {
+  width: 100%;
+  max-width: 1050px;
+  margin: 20px auto;
+  padding: 20px;
+  color: #263b2b;
+}
+
+/* Naslov */
+.prijava-zaglavlje {
+  margin-bottom: 20px;
+}
+
+.prijava-zaglavlje h1 {
+  color: #2e7d32;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.prijava-zaglavlje p {
+  margin: 0;
+}
+
+/* Dva stupca */
+.prijava-mreza {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+
+.prijava-desna-kolona {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Kartice */
+.prijava-kartica {
+  min-width: 0;
+  padding: 20px;
+  background: #f5f8f5;
+  border: 1px solid #dce7dc;
+  border-radius: 12px;
+}
+
+.prijava-kartica h2 {
+  margin: 0 0 15px;
+  font-size: 19px;
+}
+
+/* Gumbi */
+.prijava-otpada button,
+.prijava-otpada .gumb-kamera,
+.prijava-otpada .gumb-galerija {
+  display: inline-block;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2e7d32;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.prijava-otpada button:hover,
+.prijava-otpada .gumb-kamera:hover,
+.prijava-otpada .gumb-galerija:hover {
+  background: #1b5e20;
+}
+
+.prijava-otpada button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.prijava-foto-gumbi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.prijava-otpada .gumb-galerija {
+  background: #607d63;
+}
+
+.prijava-otpada .gumb-galerija:hover {
+  background: #456348;
+}
+
+/* Skriveni inputi */
+.skriveni-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.skriveni-input:focus-visible + label {
+  outline: 2px solid #263b2b;
+  outline-offset: 3px;
+}
+
+/* Pregled slike */
+.prijava-pregled img {
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.prijava-pregled p,
+.prijava-pomoc {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  color: #526a57;
+}
+
+.prijava-pregled button {
+  margin-top: 5px;
+}
+
+/* Kategorija */
+.prijava-otpada select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #b8cbb8;
+  border-radius: 8px;
+  background: white;
+  color: #263b2b;
+  font-size: 15px;
+}
+
+/* Lokacija */
+.prijava-koordinate {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.prijava-koordinate p {
+  margin: 5px 0;
+}
+
+/* Donja traka za provjeru */
+.prijava-donja-traka {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #dce7dc;
+  border-radius: 12px;
+  box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.06);
+}
+
+.prijava-donja-traka ul {
+  margin-bottom: 0;
+}
+
+.prijava-otpada [role="alert"] {
+  color: #b3261e;
+}
+
+.prijava-otpada [role="status"] {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* Mobiteli */
+@media (max-width: 700px) {
+  .prijava-otpada {
+    margin: 0 auto;
+    padding: 12px;
+  }
+
+  .prijava-mreza {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .prijava-desna-kolona {
+    gap: 12px;
+  }
+
+  .prijava-kartica {
+    padding: 15px;
+  }
+
+  .prijava-zaglavlje h1 {
+    font-size: 25px;
+  }
+
+  .prijava-donja-traka {
+    border-radius: 8px;
+    padding: 10px;
+  }
+}
