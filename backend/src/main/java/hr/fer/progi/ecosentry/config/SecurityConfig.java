@@ -37,9 +37,16 @@ public class SecurityConfig {
                 .requestMatchers("/api/public/**", "/error").permitAll()
                 .requestMatchers("/api/redar/**").hasRole("KOMUNALNI_REDAR")
                 .requestMatchers("/api/udruga/**").hasRole("EKO_UDRUGA")
+                .requestMatchers(
+                    "/", "/index.html", "/assets/**",
+                    "/favicon.svg", "/logo.png", "/icons.svg",
+                    "/login", "/akcije", "/prijava-otpada",
+                    "/redar", "/udruga"
+                ).permitAll()
                 .anyRequest().authenticated())
 
             .oauth2Login(o -> o
+                .loginPage("/login")
                 .authorizationEndpoint(e -> e.authorizationRequestResolver(resolver))
                 .userInfoEndpoint(u -> u.oidcUserService(oidcUserService))
                 .defaultSuccessUrl(frontendUrl + "/", true)
