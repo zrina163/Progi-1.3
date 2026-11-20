@@ -1,6 +1,6 @@
 # EcoSentry 🌱
 
-EcoSentry je digitalna platforma za prijavu, praćenje i sanaciju divljih odlagališta otpada koja povezuju građane, ekološke udruge i komunalne službe.
+EcoSentry je digitalna platforma za prijavu, praćenje i sanaciju divljih odlagališta otpada koja povezuje građane, ekološke udruge i komunalne službe.
 
 **Projekt na kolegiju:** Ovu je aplikaciju razvio studentski tim u sklopu kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu (FER).
 
@@ -24,18 +24,19 @@ Za potpuni opseg, zahtjeve, oblikovanje i dokaze ispitivanja pogledajte [docs](d
 <a id="deployment"></a>
 ## Postavljanje (engl. deployment)
 
-<!-- UPUTA: Ovaj odjeljak opisuje već postavljenu aplikaciju koju se  može otvoriti i isprobati bez lokalnog pokretanja izvornog koda.
-Za Iteraciju 1 i Završni pregled navedite konkretne podatke. Provjerite vodi li URL na javno dostupnu pokrenutu aplikaciju i radi li navedeni tijek uporabe. Nikada ne objavljujte lozinke ni pristupne tokene. -->
+**Javno dostupna aplikacija:** [EcoSentry](https://eco-sentry-araka0b8efhyfbfx.austriaeast-01.azurewebsites.net)
 
-**Javno dostupna aplikacija:** [Javni URL]
+**Isprobajte:** Otvorite početnu stranicu aplikacije, pregledajte kartu prijavljenih odlagališta i prijavite se putem Google računa.
 
-**Isprobajte:** [Jedna ili dvije kratke radnje koje pokazuju funkcionalan korisnički tijek.]
+**Demonstracija:** Za funkcionalnosti koje zahtijevaju prijavu potreban je Google račun. Ako račun nije odobren za testiranje, potrebno je kontaktirati članove razvojnog tima. Svaki novi korisnik dobiva ulogu građanina. Ostale uloge dodjeljuje tim.
 
-**Demonstracija:** [Objasnite kako dobiti potreban ograničeni pristup ako je prijava obavezna; u suprotnom napišite „Korisnički račun nije potreban.” Ovdje ne objavljujte lozinke ni pristupne tokene.]
+**Ograničenja:** Pojedine planirane funkcionalnosti još su u razvoju.
 
-**Ograničenja:** [Kratko navedite ograničenja postavljene inačice ili postavite poveznicu na jedinstveno mjerodavno mjesto u dokumentaciji s poznatim problemima.]
+Frontend i backend aplikacije smješteni su na platformi Azure App Service, dok se PostgreSQL baza podataka nalazi na platformi Neon.
 
-[Vodič za postavljanje i pokretanje](docs/6-Postavljanje-instalacija-i-konfiguracija.md) opisuje smještaj aplikacije (engl. hosting) koji tim stvarno koristi. Tim može koristiti Render ili drugu platformu koju ste dogovorili s asistentom/demonstratorom.
+Automatizirana izgradnja i postavljanje aplikacije izvršavaju se putem GitHub Actionsa nakon uključivanja promjena u glavnu granu `main`.
+
+Detaljne upute: [Vodič za postavljanje i pokretanje](docs/6-Postavljanje-instalacija-i-konfiguracija.md).
 
 <a id="quick-start"></a>
 ## Brzi početak / instalacija
@@ -67,12 +68,9 @@ Detaljne upute: [Baza podataka](db/Readme.md).
 
 ### Pokretanje backenda
 
-U direktoriju `backend` potrebno je kreirati `.env`
-datoteku prema predlošku `.env.example` i konfigurirati
-Google OAuth pristupne podatke.
+U direktoriju `backend` potrebno je kreirati `.env` datoteku prema predlošku `.env.example` i konfigurirati Google OAuth pristupne podatke.
 
-Po potrebi konfigurirati DB_URL, DB_USER i DB_PASSWORD
-prema lokalnoj PostgreSQL bazi.
+Po potrebi konfigurirati DB_URL, DB_USER i DB_PASSWORD prema lokalnoj PostgreSQL bazi.
 
 ```powershell
 cd backend
@@ -83,10 +81,8 @@ Backend je dostupan na http://localhost:8080.
 
 ### Pokretanje frontenda
 
-U direktoriju `frontend` kreirati `.env.local` i
-postaviti VITE_GOOGLE_MAPS_API_KEY.
-Za lokalno pokretanje ostaviti VITE_API_URL praznim
-kako bi se koristio Vite proxy.
+U direktoriju `frontend` kreirati `.env.local` i postaviti VITE_GOOGLE_MAPS_API_KEY. Za lokalno pokretanje ostaviti VITE_API_URL praznim kako bi se koristio Vite proxy.
+Za potrebne Google pristupne podatke obratiti se razvojnom timu.
 
 U drugom terminalu, iz korijena repozitorija:
 
@@ -119,23 +115,22 @@ http://localhost:8080/api/public/prijave.
 | Google Maps API | Interaktivna karta | Prikaz lokacija prijavljenog otpada |
 | Google Calendar API | Planirana integracija kalendara | Organizacija akcija čišćenja |
 | OpenWeatherMap API | Planirana integracija vremenske prognoze | Informiranje organizatora akcija |
-
-**Analiza primjera:** Svaki redak opisuje ulogu ili posljedicu konkretne tehnologije u ovoj aplikaciji. Verzije paketa pripadaju datotekama s ovisnostima projekta; verzije izvršnog okruženja i konfiguracija važna za postavljanje pripadaju vodiču za instalaciju. Važne kompromise u oblikovanju (engl. design trade-offs) objasnite na stranici arhitekture u direktoriju `docs/` umjesto da ovdje ponavljate cijeli zapis odluke. Navodite samo usluge koje vaš tim stvarno integrira.
-
-</details>
+| Azure App Service | Hosting aplikacije | Javno dostupno izvršavanje aplikacije |
+| Neon | Hosting PostgreSQL baze | Upravljana baza podataka u oblaku |
+| GitHub Actions | CI/CD | Automatizirana izgradnja i postavljanje aplikacije |
 
 <a id="team-members"></a>
 ## Članovi tima
 
 | Član | Glavna uloga ili doprinos |
 | --- | --- |
-| Antonio Dragun | backend |
-| Fran Hercig | frontend |
-| Jure Jerneić | backend |
-| Zrina Ozana Medić | baze podataka |
-| Ivona Mihaljević | frontend |
-| Tin Pavlić | baze podataka |
-| Lorena Pratljačić | backend |
+| Antonio Dragun | Backend – akcije čišćenja, ekološke udruge i sanacija odlagališta |
+| Fran Hercig | Frontend – navigacija, interaktivna karta, korisnička sučelja i deployment |
+| Jure Jerneić | Backend – prijave otpada, fotografije i upravljanje statusima prijava |
+| Zrina Ozana Medić | Baza podataka, demonstracijski podaci i projektna dokumentacija |
+| Ivona Mihaljević | Frontend – prijava i registracija korisnika te prijava otpada |
+| Tin Pavlić | Oblikovanje baze podataka, SQL shema i ER dijagrami |
+| Lorena Pratljačić | Backend – Google OAuth, autentikacija i analiza zahtjeva |
 
 Uloge se tijekom projekta mogu mijenjati. Repozitorij i dogovoreni alat za praćenje zadataka (engl. task tracker) služe kao dodatni dokazi timskog rada.
 
@@ -151,11 +146,11 @@ putem pull requestova nakon pregleda članova tima.
 
 <a id="license"></a>
 
-**Status licence:** Tim još nije odabrao licencu aplikacije.
+**Status licence:** Tim još nije odabrao licencu aplikacije. Trenutna licenca je licenca iz predloška dokumentacije.
 
 Dokumentacijski predložak kolegija sadrži otvorene obrazovne sadržaje (engl. Open Educational Resources, OER) i licenciran je licencom Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. Ta licenca **ne određuje automatski licencu studentske aplikacije**; tim treba jasno navesti licencu svojeg projekta u prethodnom retku i datoteci `LICENSE`, ako je primjenjivo.
 
-Kod trećih strana, skupovi podataka, slike, ikone i drugi sadržaji zadržavaju vlastite licence i uvjete uporabe. [Po potrebi postavite poveznicu na zahvale i izvore.]
+Kod trećih strana, skupovi podataka, slike, ikone i drugi sadržaji zadržavaju vlastite licence i uvjete uporabe.
 
 <a id="ai-usage"></a>
 ## Uporaba umjetne inteligencije [![AI Usage: Disclosed](https://img.shields.io/badge/AI%20Usage-Disclosed-blue.svg)](https://www.fer.unizg.hr/_download/repository/Policy%20on%20the%20appropriate%20use%20of%20artificial%20intelligence%20at%20the%20faculty%20of%20electrical%20engineering%20and%20computing%5B1%5D.pdf)
@@ -167,7 +162,8 @@ Ovaj projekt slijedi FER-ova [pravila o primjerenoj uporabi umjetne inteligencij
 <a id="code-of-conduct-and-support"></a>
 ## Kodeks ponašanja i podrška [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
-Od članova tima očekuje se pridržavanje **Kodeksa ponašanja studenata** Fakulteta elektrotehnike i računarstva Sveučilišta u Zagrebu, pravila timskog rada na kolegiju i [Etičkog kodeksa IEEE-a](https://www.ieee.org/about/corporate/governance/p7-8.html). [Postavite poveznicu na `CODE_OF_CONDUCT.md` ako se ta datoteka koristi u vašem repozitoriju.]
+Od članova tima očekuje se pridržavanje **Kodeksa ponašanja studenata** Fakulteta elektrotehnike i računarstva Sveučilišta u Zagrebu, pravila timskog rada na kolegiju i [Etičkog kodeksa IEEE-a](https://www.ieee.org/about/corporate/governance/p7-8.html). Dodatna pravila ponašanja navedena su u dokumentu
+[Kodeks ponašanja](CODE_OF_CONDUCT.md).
 
 ---
 
