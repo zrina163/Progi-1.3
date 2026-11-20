@@ -71,7 +71,7 @@ Vanjske usluge prikazane su izvan granice sustava. Pružatelj identiteta koristi
 **Cilj:** Prikazati važne pohranjene entitete, njihove identifikatore i veze te dovoljno atributa za razumijevanje podataka aplikacije. ER dijagram odvojen je od reprezentativnog UML dijagrama razreda u nastavku.
 
 
-![ER dijagram podataka sustava EcoSentry](./assets/diagrams/ER-dijagram.png)
+![ER dijagram podataka sustava EcoSentry](./assets/images/ER-dijagram.png)
 
 **Slika 4.2. ER dijagram podataka sustava EcoSentry**
 

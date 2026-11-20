@@ -1,0 +1,140 @@
+name: Generate documentation PDF
+
+on:
+  push:
+    branches:
+      - main
+      - docs/dokumentacija
+    paths:
+      - 'docs/**'
+      - '.github/workflows/generate-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Pandoc and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pandoc \
+            texlive-xetex \
+            texlive-latex-extra \
+            fonts-dejavu-core \
+            librsvg2-bin
+
+      - name: Prepare documentation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+
+          files = [
+              "Home.md",
+              "1-Projekt.md",
+              "2-Analiza-zahtjeva.md",
+              "3-Obrasci-uporabe.md",
+              "4-Arhitektura-i-oblikovanje.md",
+              "5-Ispitivanje.md",
+              "6-Postavljanje-instalacija-i-konfiguracija.md",
+              "7-Zakljucak-i-buduci-rad.md",
+              "A-Pregled-aktivnosti-grupe.md",
+          ]
+
+          parts = []
+
+          for name in files:
+              content = (Path("docs") / name).read_text(
+                  encoding="utf-8"
+              )
+
+              # Adjust image paths for the combined document
+              content = content.replace(
+                  "](./assets/", "](docs/assets/"
+              )
+
+              # Remove collapsible HTML wrappers
+              content = re.sub(
+                  r"</?(?:details|summary)>",
+                  "\n",
+                  content,
+                  flags=re.IGNORECASE,
+              )
+
+              parts.append(content)
+
+          combined = "\n\n\\newpage\n\n".join(parts)
+
+          # Convert SVG diagrams to PNG for LaTeX
+          pattern = r"!\[([^\]]*)\]\(([^)]*\.svg)\)"
+
+          def convert_svg(match):
+              source = Path(match.group(2))
+              destination = (
+                  Path("/tmp/pdf-images") /
+                  (source.stem + ".png")
+              )
+              destination.parent.mkdir(
+                  parents=True, exist_ok=True
+              )
+
+              subprocess.run(
+                  [
+                      "rsvg-convert",
+                      "-o", str(destination),
+                      str(source),
+                  ],
+                  check=True,
+              )
+
+              return (
+                  f"![{match.group(1)}]"
+                  f"({destination})"
+              )
+
+          combined = re.sub(
+              pattern, convert_svg, combined
+          )
+
+          Path("/tmp/documentation.md").write_text(
+              combined,
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Generate PDF
+        run: |
+          mkdir -p docs/deliverables
+
+          pandoc /tmp/documentation.md \
+            -f markdown+raw_html \
+            -o docs/deliverables/PROINZ26_G01_EcoSentry_v1.pdf \
+            --pdf-engine=xelatex \
+            --resource-path=.:docs \
+            -V mainfont="DejaVu Sans" \
+            -V geometry:margin=2cm \
+            -V fontsize=10pt \
+            --toc
+
+      - name: Commit generated PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add docs/deliverables/PROINZ26_G01_EcoSentry_v1.pdf
+
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: generate documentation PDF"
+            git push
+          fi
