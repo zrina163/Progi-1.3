@@ -6,56 +6,77 @@
 
 **Cilj:** Voditi kratak zapis projektnih sastanaka i tjedne koordinacije: tko je sudjelovao, što je odlučeno i koja je radnja uslijedila. Raspravu koja nije dovela do odluke zabilježite samo ako je važno pitanje ostalo otvoreno.
 
->Definirati prije prve uporabe:
-`[Inicijali/Kratica] = [Ime i prezime]` (npr. *AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj*).																														
+**Kratice članova tima:** AD = Antonio Dragun; FH = Fran Hercig; JJ = Jure Jerneić; ZM = Zrina Medić; IM = Ivona Mihaljević; TP = Tin Pavlić; LP = Lorena Pratljačić.
 
-| Datum i sudionici | Glavna tema | Donesena odluka ili zadatak  | Poveznica na zadatak ili  rezultat, ako postoji |
+| Datum i sudionici | Glavna tema | Donesena odluka ili zadatak | Poveznica na zadatak ili rezultat, ako postoji |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| 15. 10. 2026.; AD, FH, JJ, ZM, IM, TP, LP | Analiza projektne teme i podjela rada | Odrediti glavne funkcionalnosti za građane, eko-udruge i komunalne redare te razraditi zahtjeve i raspodjelu posla. Za koordinaciju podjele zadataka odgovorna ZM. | Inicijalni commit. |
+| 20. 10. 2026.; ZM, TP	| Oblikovanje baze podataka i ER modela	| Uskladiti strukturu baze podataka s funkcionalnim zahtjevima aplikacije. TP je zadužen za izradu i doradu ER modela, a ZM za pripremu demonstracijskih podataka i provjeru usklađenosti s dokumentacijom. |	PR #2, PR #12 |
+| 26. 10. 2026.; AD, FH, JJ, ZM, IM, TP, LP | Zahtjevi, obrasci uporabe i oblikovanje podataka |  Uskladiti obrasce uporabe s funkcionalnostima aplikacije te razraditi model baze podataka. Za dokumentaciju zahtjeva zadužena LP, za model podataka ZM. | PR #2, PR #10    |
+| 29. 10. 2026.; AD, FH, JJ, ZM, IM, TP, LP | Arhitektura i početna implementacija | Definirati povezivanje klijentskog i poslužiteljskog dijela te utvrditi prioritete za autentifikaciju, prijave otpada i prikaz na karti. Nositelji provedbe su FH, IM i LP | PR #1, PR #9, PR #13 |
+| 5. 11. 2026.; AD, JJ, LP | Organizacija poslužiteljskog dijela i autentifikacije |	Razdvojiti implementaciju prijava otpada i akcija čišćenja. JJ preuzima obradu prijava otpada, AD razvoj akcija čišćenja, a LP autentifikaciju korisnika. |	PR #13, PR #15, PR #27 |
+|12. 11. 2026.; FH, IM, LP	| Usklađivanje korisničkog sučelja s autentifikacijom |	Dogovoriti prikaz navigacije i korisničkog profila nakon prijave te razdvojiti sučelja prema korisničkim ulogama. FH je zadužen za navigaciju i prikaz korisničkog profila, IM za korisničke obrasce, a LP za provjeru povezivanja s autentifikacijom.	| PR #7, PR #14 |
+| 16. 11. 2026.; AD, FH, JJ, ZM, IM, TP, LP | Pregled razvoja i priprema prve predaje | Pregledati stanje funkcionalnosti i dokumentacije, uskladiti modele s implementacijom te raspodijeliti preostale zadatke do predaje 20. 11. Za deploy odgovoran FH. Za finalnu dokumentaciju odgovorni ZM i TP. | PR #34 |
 
-Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet redak. Dodijeljeni zadatak treba imati odgovornu osobu; za neriješeno pitanje treba navesti tko će ga dalje obraditi. Sam naslov sastanka ne pokazuje što se promijenilo. U ovu evidenciju nemojte kopirati cijeli popis issuea ni prijepis razgovora.
 
-<details>
-<summary><strong>Primjer evidencije sastanaka (CrisisMap)</strong></summary>
-
-**Primjer — CrisisMap:**
-
-**Kratice članova tima:** AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj.
-
-| Datum i sudionici | Glavna tema | Odluka, radnja ili otvoreno pitanje | Poveznica na zadatak ili nastali rezultat, ako postoji |
-| --- | --- | --- | --- |
-| 15. 11. 2025.; AK, LM, EP | Lokacija kada je pristup preglednika odbijen | Dodati ručni odabir položaja na karti u obrazac za prijavu. AK obrađuje obrazac; LM provjerava valjanost lokacije. | Zadataka #21 i #23. |
-| 22. 11. 2025.; AK, EP | Usklađivanje formata lokacijskih podataka | klijentski dio i poslužiteljski API koriste neusklađene formate koordinata. EP će uskladiti format zahtjeva i demonstrira spremanje na sljedećem pregledu. | Zadatak #25. |
-
-**Ishod i odgovornost:** Zapisi jasno definiraju tko je odgovoran za koji dio posla i koji je provjerljivi rezultat dogovoren. npr Rečenica „Raspravljali smo o obradi lokacije” prikrila bi je li se itko obvezao na promjenu. Ovi redci navode odluku ili otvorenu radnju, odgovornu osobu i rezultat koji se može pregledati.
-
-</details>
 
 ## A.2 Plan rada
 
-**Cilj:** Prikazati planirani redoslijed rada i odgovornosti u timu. Prikažite projektne tjedne ili druga kratka razdoblja koja tim koristi, uključujući pripremu za formalne provjere.
+**Glavni prikaz plana:** Gantogram u nastavku, uz [GitHub repozitorij EcoSentry](https://github.com/zrina163/Progi-1.3) i [GitHub Issues](https://github.com/zrina163/Progi-1.3/issues) za praćenje pojedinačnih zadataka.
 
-**Trenutačni plan:** [Poveznica na GitHub Projects ploču, Gantogram ili održavanu tablicu u nastavku. Navesti osobu zaduženu za ažurnost plana. Odaberite jedan glavni prikaz i navedite tko ga održava ažurnim.]
 
-| Razdoblje/Tjedan | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke |
+Trenutačni plan: Gantogram prikazuje aktivnosti projekta EcoSentry od 5. listopada 2026. do prve predaje 20. studenoga 2026. Plan se temelji na projektnim aktivnostima i podjeli rada među članovima tima. Za ažurnost plana zadužena je ZM.
+
+
+## Gantogram
+
+```mermaid
+gantt
+    title EcoSentry - Plan rada do prve predaje
+    dateFormat YYYY-MM-DD
+    axisFormat %d.%m.
+
+    section Pocetna faza
+    Upoznavanje s temom          :2026-10-05, 7d
+    Formiranje tima              :milestone, 2026-10-12, 0d
+    Organizacija rada i GitHub   :2026-10-12, 8d
+
+    section Faza razrade
+    Analiza zahtjeva (LP, ZM)    :2026-10-15, 17d
+    Baza podataka i ER (TP)      :2026-10-22, 24d
+    Obrasci uporabe (LP, ZM)     :2026-10-24, 15d
+    Arhitektura i UML (ZM, TP)   :2026-11-06, 13d
+
+    section Faza izgradnje
+    React i navigacija (FH)      :2026-10-20, 14d
+    Login i autentifikacija (IM, LP) :2026-10-28, 17d
+    Google Maps (FH)             :2026-11-02, 13d
+    Prijave otpada (JJ, IM)      :2026-11-02, 19d
+    Akcije ciscenja (AD)         :2026-11-05, 13d
+    Profil i redar (FH)          :2026-11-08, 11d
+
+    section Provjera i predaja
+    Integracija i provjera       :2026-11-16, 5d
+    Zavrsna dorada dokumentacije :2026-11-17, 4d
+    Prva predaja                 :milestone, 2026-11-20, 0d
+```
+
+
+
+## Tablica plana rada
+
+| Razdoblje / Tjedan |	Glavni planirani rad |	Odgovorni članovi |	Poveznica na zadatke |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| 5. – 11. 10. |	Upoznavanje s projektnom temom i analiza početnih zahtjeva |	Svi	| — |
+| 12. – 18. 10. |	Formiranje tima, podjela odgovornosti i organizacija rada |	Svi	| — |
+| 19. – 25. 10. |	Uspostava repozitorija, analiza zahtjeva, početno oblikovanje baze podataka i korisničkog sučelja |	LP, TP, FH, ZM |	PR #1, #2, #3 |
+| 26. 10. – 1. 11. |	Izrada obrazaca uporabe, ER modela, navigacije te stranica za prijavu i registraciju |	LP, TP, FH, IM	| PR #6, #7 |
+| 2. – 8. 11. |	Razvoj autentifikacije, integracija Google Maps i implementacija poslužiteljskog dijela za prijave otpada |	LP, FH, JJ |	PR #9, #13, #15 |
+| 9. – 15. 11. |	Razvoj korisničkog profila, akcija čišćenja, demonstracijskih podataka i dorada arhitekture |	FH, AD, ZM, TP |	PR #12, #14, #27 |
+| 16. – 20. 11. |	Izrada sučelja komunalnog redara, usklađivanje UML dijagrama i dokumentacije, provjera funkcionalnosti te priprema prve predaje |	Svi |	PR #31, #35, #36 |
 
-Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga kada se prioriteti promijene. Kratice članova tima definirajte  u A.1 i ovdje ih primjenjujte dosljedno; ako dva člana imaju iste inicijale, proširite kraticu. Plan nije dokaz da je planirani rad dovršen (to dokazuje kod i dokumentacija).
+Napomena: Navedena razdoblja predstavljaju okvirni plan aktivnosti, dok povezani GitHub zadaci i pull requestovi omogućuju pregled stvarno izvedenog rada.
 
-<details>
-<summary><strong>Primjer plana rada</strong></summary>
-
-**Primjer — CrisisMap:** Plan rada obuhvaća razvoj prijava, karte i postavljanja aplikacije. Za svako razdoblje navedeni su glavni zadaci i odgovorni članovi.
-
-| Razdoblje | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke/opis |
-| --- | --- | --- | --- |
-| Projektni tjedan 6 | Obrazac za prijavu i provjera valjanosti lokacije | AK, LM | Zadataka #21 i #23. |
-| Projektni tjedan 7 | Povezivanje obrasca s API-jem za prijave | EP | Zadatak #25. |
-
-**Čitanje plana:** Kratice štede prostor u sažetom planu; njihove definicije s početka A.1 vrijede u cijelom ovom primjeru. Kada rad kasni, ažurirajte stvarni zadatak i očekivanje u planu; nemojte tvrditi da je nedovršena funkcionalnost završena samo zato što je predviđeni tjedan prošao.
-
-</details>
 
 ## A.3 Aktivnosti i doprinosi članova
 
@@ -63,55 +84,37 @@ Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga k
 
 | Aktivnost ili rezultat | Član | Prijavljeni sati | Reprezentativni rezultat ili poveznica |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Inicijalizacija React aplikacije, navigacija i Google Maps prikaz | FH | 8 | [PR #1](https://github.com/zrina163/Progi-1.3/pull/1), [PR #6](https://github.com/zrina163/Progi-1.3/pull/6), [PR #9](https://github.com/zrina163/Progi-1.3/pull/9) |
+| Oblikovanje stranice prijave, profilnog izbornika i sučelja komunalnog redara | FH | 8 | [PR #14](https://github.com/zrina163/Progi-1.3/pull/14), [PR #31](https://github.com/zrina163/Progi-1.3/pull/31) |
+| Implementacija poslužiteljskih funkcija za prijave otpada | JJ | 8 | [PR #15](https://github.com/zrina163/Progi-1.3/pull/15) |
+| Implementacija poslužiteljskih funkcija za akcije čišćenja | AD | 12 | [PR #27](https://github.com/zrina163/Progi-1.3/pull/27) |
+| Početni ER dijagram baze podataka | ZM | 4 | [PR #2](https://github.com/zrina163/Progi-1.3/pull/2) | 
+| Baza podataka i arhitekturne odluke | TP | 12 | [PR #2](https://github.com/zrina163/Progi-1.3/pull/2), [PR #10](https://github.com/zrina163/Progi-1.3/pull/10), [PR #25](https://github.com/zrina163/Progi-1.3/pull/25), [PR #26](https://github.com/zrina163/Progi-1.3/pull/26) |
+| Prijava i registracija korisnika te razvoj sučelja za prijavu otpada | IM | 11 | [PR #7](https://github.com/zrina163/Progi-1.3/pull/7); [PR #33](https://github.com/zrina163/Progi-1.3/pull/33)  |
+| Analiza zahtjeva i implementacija autentifikacije | LP | 15 | [PR #3](https://github.com/zrina163/Progi-1.3/pull/3), [PR #13](https://github.com/zrina163/Progi-1.3/pull/13) |
+| Usklađivanje analize zahtjeva, obrazaca uporabe i UML dijagrama | ZM | 4 | [PR #35](https://github.com/zrina163/Progi-1.3/pull/35) |
+| Arhitekturna dokumentacija, dijagram komponenata i dijagram razreda | ZM | 3 | [PR #36](https://github.com/zrina163/Progi-1.3/pull/36) |
+| Postavljanje aplikacije na javni poslužitelj | FH | 3 | [PR 41](https://github.com/zrina163/Progi-1.3/pull/41) |
 
-Koristite aktivnosti specifične za projekt umjesto obaveznog retka za svako poglavlje dokumentacije ili svaki UML dijagram. Tim treba dosljedno bilježiti sate i izbjegavati dvostruko brojanje zajedničkog rada; reprezentativni rezultat objašnjava što je prijavljeni trud proizveo. Sati su samoprijavljena procjena uloženog rada, a ne mjera kvalitete niti zamjena za pregled koda i artefakata.
 
-<details>
-<summary><strong>Primjer aktivnosti i rezultata rada</strong></summary>
 
-**Primjer — CrisisMap:** Tablica razlikuje implementaciju, integraciju i dokumentaciju te svaku aktivnost povezuje s rezultatom.
-
-| Aktivnost ili rezultat | Član | Prijavljeni sati | Reprezentativni rezultat ili poveznica |
-| --- | --- | --- | --- |
-| Ručni unos položaja na karti | AK | 8 | Zadatak #21; promjena klijentskog dijela. |
-| Provjera valjanosti i trajna pohrana prijave | LM | 10 | Zadatak #23; promjena pozadinskog sustava i ispitivanje. |
-| Integracija klijenta i API-ja te javno postavljanje | EP | 7 | Zadatak #25; konfiguracija u `render.yaml` i `dist/` |
-| Obrazac uporabe za podnošenje prijave i provjera odbijenog dopuštenja | NK | 5 | Završene izmjene UC-002 i ispitivanje ST-03. |
-
-**Trud i rezultat:** Završni stupac omogućuje raspravu o doprinosu bez tretiranja velikog broja sati kao dokaza isporuke. Tim može prijaviti stvarno dugotrajan, još neriješen problem integracije kao obavljen rad i iskreno opisati njegov ishod.
-
-</details>
 
 ## A.4 Pregled promjena u repozitoriju
 
 **Cilj:** Prikazati kada su promjene napravljene u repozitoriju i tko ih je napravio, uz napomenu da sam broj zapisa promjena ne mjeri kvalitetu doprinosa.
 
-**Prikaz aktivnosti repozitorija:** [Ugradite ili povežite GitHubov prikaz `Contributors` i generirani graf za projektni repozitorij; navedite razdoblje koje obuhvaća.]
 
-Graf može pokazati kada su zapisi promjena napravljeni i tko ih je napravio, ali ne prikazuje sav rad na oblikovanju, ispitivanju, integraciji, pregledu ili dokumentaciji. Ako postoji uočljiv nesklad s tablicom aktivnosti, kratko ga objasnite; nemojte iz grafa izvoditi broj sati. Generirani prikaz neka bude vezan uz stvarni repozitorij umjesto da se ručno crta drugi graf.
+[![Contributors graf](images/contributors.png)](https://github.com/zrina163/Progi-1.3/graphs/contributors)
+
+Graf prikazuje doprinose članova tima kroz razvoj projekta. Broj commita nije izravna mjera ukupnog uloženog rada.
+
 
 ## A.5 Ključni inženjerski izazovi i rješenja
 
-**Cilj:** Dokumentirati stvarne tehničke i organizacijske prepreke s kojima se tim suočio, poduzete korektivne inženjerske korake te konačni ishod. Odaberite konkretne izazove umjesto općenite pohvale timskog rada.
-
 | Izazov | Poduzeta radnja | Ishod ili preostalo ograničenje |
 | --- | --- | --- |
-|  |  |  |
+| Bilo je potrebno omogućiti različite prikaze aplikacije ovisno o ulozi prijavljenog korisnika. | LP je radila na autentifikaciji, a FH na korisničkom profilu, navigaciji i sučelju komunalnog redara. | Razvijeni su odgovarajući dijelovi aplikacije kroz [PR #13](https://github.com/zrina163/Progi-1.3/pull/13), [PR #14](https://github.com/zrina163/Progi-1.3/pull/14) i [PR #31](https://github.com/zrina163/Progi-1.3/pull/31). |
+| Prijava otpada razvijala se odvojeno na klijentskom i poslužiteljskom dijelu, zbog čega je trebalo uskladiti njihovo povezivanje. | JJ je implementirao poslužiteljski dio, a IM je radila na korisničkom sučelju za prijavu otpada. | Backend je razvijen kroz [PR #15](https://github.com/zrina163/Progi-1.3/pull/15), a frontend kroz [PR #33](https://github.com/zrina163/Progi-1.3/pull/33). |
 
-<details>
-<summary><strong>Rješavanje nesklada formata lokacije</strong></summary>
 
-**Primjer — CrisisMap:**
 
-| Izazov | Poduzeta radnja | Ishod ili preostalo ograničenje |
-| --- | --- | --- |
-| Odabrani položaj na karti prikazivao se u klijentu, ali podnesena prijava nije zadržavala koordinate. | AK i EP usporedile su zahtjev preglednika s poljima lokacije koje očekuje API; AK je uskladila format zahtjeva, a LM je dodao provjeru valjanosti lokacije. | Nova prijava u ovom se scenariju može dohvatiti sa spremljenim položajem; tim povezuje odgovarajuću promjenu integracije i provjeru. |
-
-**Problem, odgovor i ishod:** Svaki se dio može provjeriti u projektu. Rečenica poput „imali smo poteškoće s integracijom i riješili ih timskim radom” ne bi čitatelju rekla što nije radilo ni kako je rješenje promijenjeno.
-
-</details>
-
----
-
->**Završna provjera:** Sastanci navode smislene ishode i odgovorne osobe; plan odražava namjeravani rad; tablica uloženog rada i generirani prikaz repozitorija odnose na ovaj vidljivi projekt; konkretni izazovi povezani su s radnjama i njihovim rezultatima. 
