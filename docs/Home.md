@@ -77,6 +77,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | --- | --- | --- | --- |
 | Claude | Claude Opus | Tim | Pomoć pri razvoju aplikacije, otklanjanju pogrešaka, ispravljanju dokumentacije |
 | ChatGPT | - | Fran Hercig | Pomoć pri postavljanju aplikacije |
+| ChatGPT | - | Zrina Medić | Pomoć pri formatiranju dokumentacije i generiranje gantograma |
 
 ### Opseg doprinosa umjetne inteligencije
 
