@@ -104,9 +104,10 @@ Napomena: Navedena razdoblja predstavljaju okvirni plan aktivnosti, dok povezani
 **Cilj:** Prikazati kada su promjene napravljene u repozitoriju i tko ih je napravio, uz napomenu da sam broj zapisa promjena ne mjeri kvalitetu doprinosa.
 
 
-![Graf doprinosa članova tima](images/contributors.png)
+![Graf doprinosa članova tima](./assets/diagrams/contributors.png)
 
 [GitHub Contributors – EcoSentry](https://github.com/zrina163/Progi-1.3/graphs/contributors)
+
 
 Graf prikazuje doprinose članova tima kroz razvoj projekta. Broj commita nije izravna mjera ukupnog uloženog rada.
 
